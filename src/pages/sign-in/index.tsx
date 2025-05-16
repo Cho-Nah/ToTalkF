@@ -1,16 +1,21 @@
-// import { authAPI } from "../../app/services/AuthService";
+import { authAPI } from "../../app/services/AuthService";
 import { Button, Input } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignInResponse } from "../../models/user";
 
 const MainPage = () => {
-  const loginInput = useInput();
-  const passInput = useInput();
+  const loginInput = useInput("");
+  const passInput = useInput("");
+
+  const [sendUserData, {}] = authAPI.useSendSignInMutation();
 
   const handleSign = async () => {
     const signData: SignInResponse = { login: loginInput.value, password: passInput.value}
 
-    // const [] = authAPI.
+    loginInput.clear();
+    passInput.clear();
+
+    const response = await sendUserData(signData);
   }
 
   return (
@@ -29,7 +34,8 @@ const MainPage = () => {
         />
 
         <Button
-          isRipple
+          isDisabled={loginInput.value.trim() && passInput.value.trim() ? false : true}
+          // isRipple
           onClick={handleSign}
         >
           Войти

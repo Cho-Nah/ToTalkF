@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { IUser, SignInResponse } from "../../models/user";
 
 export const authAPI = createApi({
@@ -15,4 +15,4 @@ export const authAPI = createApi({
             invalidatesTags: ['sign-in']
         }),
     })
-})
+});
