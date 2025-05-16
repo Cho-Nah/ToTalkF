@@ -1,0 +1,43 @@
+@mixin centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin label-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  .title,
+  .subtitle {
+    width: 100%;
+    float: left;
+  }
+
+  .subtitle {
+    color: var(--color-text-subtitle);
+    font-size: 0.875rem;
+  }
+}
+
+@mixin hover-transition {
+  html:not(.mobile) &:not(.hover-disabled):hover {
+    background-color: var(--color-background-hover);
+  }
+}
+
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin menu-backdrop($blur: 15px) {
+  backdrop-filter: blur($blur);
+  background-color: var(--color-background-menu);
+}

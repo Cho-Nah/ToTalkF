@@ -1,0 +1,25 @@
+.ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.Ripple {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  height: 100%;
+
+  & > div.effect {
+    position: absolute;
+    background: var(--color-ripple);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: scale(0);
+    transition: opacity 600ms, transform var(--duration-ripple);
+  }
+
+  html.mobile &.disable-mobile {
+    display: none;
+  }
+}

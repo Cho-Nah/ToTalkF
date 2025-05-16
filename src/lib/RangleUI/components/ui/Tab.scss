@@ -1,0 +1,46 @@
+@use "../../scss/mixin.scss" as *;
+
+.Tab {
+  display: flex;
+	height: 3rem;
+  align-items: center;
+  float: left;
+  cursor: pointer;
+
+  &.active {
+    color: var(--color-scheme);
+		pointer-events: none;
+  }
+
+	&.disabled {
+		opacity: 0.5;
+		pointer-events: none;
+	}
+
+  html:not(.mobile) &:not(.hover-disabled):hover .content {
+    background-color: var(--color-background-hover);
+  }
+    
+  .content {
+    height: 100%;
+    display: flex;
+    padding: 0 1rem;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    user-select: none;
+    font-size: 1rem;
+    border-radius: 6px 6px 0 0;
+    transition: background-color var(--duration-fast), color var(--duration-default);
+
+    & > .label {
+      display: block;
+      float: left;
+    }
+
+    .Badge {
+      display: inline-block;
+      margin-left: 0.5rem;
+    }
+	}
+}

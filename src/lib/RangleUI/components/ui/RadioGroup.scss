@@ -1,0 +1,33 @@
+.RadioGroup {
+  width: 100%;
+  float: left;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &:first-child {
+    border-top: none;
+  }
+
+  & > .label {
+    width: 100%;
+    float: left;
+    margin-bottom: 0.5rem;
+
+    .title, .subtitle {
+      width: 100%;
+      float: left;
+    }
+
+    .subtitle {
+      color: var(--color-text-subtitle);
+      font-size: 0.875rem;
+    }
+  }
+
+  .group {
+    width: 100%;
+    float: left;
+  }
+}

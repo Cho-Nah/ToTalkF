@@ -1,0 +1,315 @@
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  height: 100%;
+}
+
+:root {
+  --color-text-rgb: 0, 0, 0;
+  --color-text-subtitle-rgb: 112, 117, 121;
+
+  --color-background-rgb: 255, 255, 255;
+  --color-primary-rgb: 30, 164, 215;
+  --color-error-rgb: 223, 63, 64;
+  --color-warning-rgb: 255, 165, 0;
+  --color-success-rgb: 37, 178, 119;
+
+  --color-primary: rgba(var(--color-primary-rgb), 1);
+  --color-primary-text: rgba(255, 255, 255, 0.9375);
+  --color-error: rgba(var(--color-error-rgb), 1);
+  --color-warning: rgba(var(--color-warning-rgb), 1);
+  --color-success: rgba(var(--color-success-rgb), 1);
+
+  --color-text: rgba(var(--color-text-rgb), 1);
+  --color-icon: rgba(var(--color-text-subtitle-rgb), 1);
+  --color-text-subtitle: rgba(var(--color-text-subtitle-rgb), 1);
+
+  --color-background: rgba(var(--color-background-rgb), 1);
+  --color-background-secondary: #f4f4f5;
+  --color-background-hover: #f4f4f5;
+  --color-background-active: #f4f4f5;
+  --color-background-menu: rgba(var(--color-background-rgb), 0.9125);
+
+  --color-inactive: #dddddd;
+  --color-border: #ebebeb;
+  --color-shadow: rgba(114, 114, 114, 0.353);
+  --color-ripple: rgba(0, 0, 0, 0.08);
+
+  --font-size: 16px;
+  --border-radius: 2rem;
+  --font-family: -apple-system, "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+
+  --duration-fast: 100ms;
+  --duration-default: 150ms;
+  --duration-long: 250ms;
+  --duration-ripple: 400ms;
+
+  --z-index-below: -1;
+  --z-index-default: 0;
+  --z-index-menu: 10;
+  --z-index-portal: 15;
+}
+
+:root.dark {
+  --color-primary-rgb: 30, 164, 215;
+
+  --color-text-rgb: 255, 255, 255;
+  --color-background-rgb: 25, 25, 26;
+  --color-shadow: rgba(0, 0, 0, 0.15);
+
+  --color-background-secondary: #0a0a0a;
+  --color-text-subtitle: #aaaaaa;
+  --color-icon: #aaaaaa;
+  --color-inactive: #707579;
+  --color-ripple: rgba(255, 255, 255, 0.08);
+  --color-background-menu: rgba(var(--color-background-rgb), 0.9625);
+
+  --color-border: #292929;
+  --color-background-hover: #2c2c2c;
+}
+
+body {
+  margin: 0;
+  height: 100%;
+  font-family: var(--font-family);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--color-text);
+  font-size: var(--font-size);
+  background-color: var(--color-background);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-background-secondary);
+}
+
+.App {
+  width: 900px;
+  max-width: 100%;
+  height: 100%;
+  overscroll-behavior: contain;
+  outline: 1px solid var(--color-border);
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.relative {
+  position: relative;
+}
+
+.no-select {
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  -moz-user-select: -moz-none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.color-error {
+  --color-scheme-rgb: var(--color-error-rgb);
+  --color-primary-text: #fff;
+}
+
+.color-warning {
+  --color-scheme-rgb: var(--color-warning-rgb);
+  --color-primary-text: #fff;
+}
+
+.color-success {
+  --color-scheme-rgb: var(--color-success-rgb);
+  --color-primary-text: #fff;
+}
+
+.color-neutral {
+  --color-scheme-rgb: var(--color-text-rgb);
+}
+
+:not(.color-primary)[class*="color-"] {
+  --color-scheme: rgba(var(--color-scheme-rgb), 1) !important;
+}
+
+.custom-scroll {
+  scrollbar-width: 0;
+  overflow: hidden overlay !important;
+  scrollbar-color: rgba(90, 90, 90, 0) transparent;
+  transition: scrollbar-color var(--duration-default) ease;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overscroll-behavior: contain;
+
+  &::-webkit-scrollbar-track {
+    display: none;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    background-color: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    display: none;
+    background-color: transparent;
+    border-radius: 0.375rem;
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.01);
+  }
+
+  &:hover,
+  &:focus,
+  &:focus-within {
+    scrollbar-color: rgba(90, 90, 90, 0.45) transparent;
+
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(90, 90, 90, 0.45);
+    }
+  }
+}
+
+.custom-scroll-x {
+  overflow: overlay hidden !important;
+}
+
+/* layout */
+.layout {
+  min-height: 100%;
+  background-color: var(--color-background-secondary);
+  display: flex;
+  height: auto;
+  flex-direction: column;
+
+  .layout-block {
+    width: 100%;
+    float: left;
+    padding: 1rem;
+    background-color: var(--color-background);
+    margin-bottom: 0.5rem;
+    // box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  
+    &:first-child {
+      border-top-color: transparent;
+    }
+
+    &:last-child {
+      flex: 1;
+      margin: 0;
+      border-bottom-color: transparent;
+    }
+  }
+
+  .layout-title,
+  .layout-subtitle {
+    width: 100%;
+    font-size: 1rem;
+    float: left;
+    white-space: normal;
+    color: var(--color-text);
+  }
+
+  .layout-subtitle {
+    font-size: 1rem;
+    padding: 0.375rem 0;
+    color: var(--color-text-subtitle);
+  }
+
+  /* iOS-styled */
+  .layout-overtitle {
+    line-height: 1.5;
+    padding: 0 1rem;
+    float: left;
+    font-size: 1rem;
+  }
+
+  .layout-oversubtitle {
+    line-height: 1.5;
+    color: var(--color-text-subtitle);
+    padding: 0 1rem;
+    margin-bottom: 0.375rem;
+    float: left;
+    font-size: 1rem;
+  }
+
+  &.ios {
+    padding: 1rem 1rem 0 1rem;
+
+    .layout-block {
+      border-radius: 0.75rem;
+      margin-bottom: 2rem;
+    }
+  }
+}
+
+.ellipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.link {
+  color: var(--color-primary);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.svg-defset {
+  position: absolute;
+  opacity: 0;
+  top: -500%;
+  left: -500%;
+  pointer-events: none;
+}
+
+input.hidden {
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  } 100% {
+    opacity: 0;
+  }
+}
+
+@keyframes grow-up {
+  0% {
+    transform: scale(0.5);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes spawn-bottom {
+  0% {
+    transform: translateY(50%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

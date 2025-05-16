@@ -1,0 +1,91 @@
+@use "../../scss/mixin.scss" as *;
+
+.Menu {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+
+  &.disabled {
+    pointer-events: none;
+  }
+
+  .menu-footer {
+    @include centered;
+
+    font-size: 0.875rem;
+    padding: 0.375rem 0;
+    color: var(--color-text-subtitle);
+  }
+}
+
+.menu-overlay {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  cursor: default;
+  z-index: var(--z-index-menu);
+
+  .menu-list {
+    @include no-select;
+    @include menu-backdrop(15px);
+
+    --animation-config: var(--duration-default) cubic-bezier(.4, 0, .2, 1);
+
+    display: flex;
+    min-width: 11rem;
+    max-width: 15rem;
+    flex-direction: column;
+    position: absolute;
+    overflow: hidden;
+    border-radius: calc(var(--border-radius) / 2);
+    padding: 0.375rem;
+    opacity: 0;
+    box-shadow: 0px 0px 10px var(--color-shadow);
+    transition: opacity var(--animation-config), transform var(--animation-config);
+
+    & > * {
+      flex: 0 0 auto;
+    }
+    
+    &.width-fit {
+      min-width: unset;
+      max-width: unset;
+    }
+
+    .Button {
+      transition: transform var(--duration-fast);
+      will-change: transform;
+      transform-origin: center center;
+
+      &:not(.disabled):active {
+        transform: scale(0.98) translateY(0);
+      }
+    }
+
+    @keyframes menu-spawn {
+      0% {
+        transform: scale(0.85);
+      } 100% {
+        transform: scaleZ(1);
+      }
+    }
+
+    html.mobile & {
+      padding: 0;
+    }
+
+    &.open {
+      opacity: 1;
+      animation: menu-spawn var(--animation-config);
+    }
+
+    &.closed {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+  }
+}

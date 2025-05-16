@@ -1,0 +1,22 @@
+#root {
+  display: flex;
+  justify-content: center;
+}
+
+.App {
+  width: 480px;
+}
+
+.between {
+  display: flex;
+  justify-content: space-between;
+  // gap: 1rem;
+
+  & > * {
+    flex: 1;
+  }
+}
+
+.icon-m0 {
+  margin: 0;
+}

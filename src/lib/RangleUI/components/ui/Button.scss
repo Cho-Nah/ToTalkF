@@ -1,0 +1,97 @@
+@use "../../scss/mixin.scss" as *;
+
+.Button {
+  --color-children-text: var(--color-primary-text);
+  --color-scheme-rgb: var(--color-primary-rgb);
+  --color-scheme: rgba(var(--color-scheme-rgb), 1);
+
+  appearance: none;
+  height: 3rem;
+  outline: none;
+  float: left;
+  padding-block: 0;
+  padding-inline: 2rem;
+  background-color: var(--color-scheme);
+  border: none;
+  font-family: var(--font-family);
+  overflow: hidden;
+  border-radius: var(--border-radius);
+  font-size: 1.125rem;
+  color: var(--color-children-text);
+  margin: 0;
+  cursor: pointer;
+  position: relative;
+  transition: background-color var(--duration-fast);
+
+  .content { 
+    width: 100%;
+    height: 100%;
+    transition: transform 200ms, opacity 200ms;
+  }
+
+  .Icon {
+    color: var(--color-children-text);
+  }
+
+  &.disabled, &:disabled {
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  &.secondary {
+    --color-children-text: var(--color-scheme);
+    --color-ripple: rgba(var(--color-scheme-rgb), 0.08) !important;
+
+    background-color: transparent;
+
+    html:not(.mobile) &:not(.hover-disabled):hover {
+      background-color: rgba(var(--color-scheme-rgb), 0.08);
+
+      &.color-neutral {
+        background-color: rgba(var(--color-text-subtitle-rgb), 0.08) !important;
+      }
+    }
+  }
+
+  &.icon {
+    @include hover-transition;
+		--color-children-text: var(--color-text);
+    width: unset;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    padding-inline: 0;
+    background-color: transparent;
+
+    & > .content > .Icon {
+			--color-children-text: var(--color-icon);
+      font-size: 1.75rem;
+    }
+
+    html:not(.mobile) &:hover,
+    &:active {
+      background-color: var(--color-background-hover);
+    }
+	}
+
+  &.loading {
+    cursor: default;
+    pointer-events: none;
+    position: relative;
+
+    .content {
+      transform: scale(0.625);
+      opacity: 0;
+    }
+
+    .Loader {
+      --size: 1.25rem;
+      --loader-color: var(--color-children-text);
+      animation: spawn-bottom 200ms, fade-in 300ms;
+    }
+  }
+
+  &.with-icon .Icon {
+    margin-right: .5rem;
+  }
+}
