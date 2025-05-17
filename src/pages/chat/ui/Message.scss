@@ -1,0 +1,36 @@
+.Message {
+  width: 100%;
+  float: left;
+  padding: 0.3125rem 0;
+
+  &.own .content {
+    float: right;
+    color: #fff;
+    border-radius: 8px 8px 0 8px;
+    background-color: var(--color-primary);
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;
+    padding: 6px 8px;
+    float: left;
+    background-color: #fff;
+    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 8px 8px 8px 0;
+
+    .text {
+      float: left;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .time {
+      font-size: 12px;
+      float: left;
+      opacity: 0.6;
+      text-align: end;
+    }
+  }
+}

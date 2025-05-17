@@ -11,5 +11,6 @@ export interface SignInResponse {
 export interface SignUpResponse {
   login: string;
   password: string;
+  name: string;
   role: string;
 }
