@@ -6,6 +6,7 @@ import type { SignInResponse } from "../../models/user";
 
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 import RegisterPage from "../sign-up";
+import ChatList from "../chat";
 
 const AuthPage = () => {
   const manager = useContext(ManagerContext);
@@ -19,6 +20,14 @@ const AuthPage = () => {
     manager.createWindow(
       <Window title="Sign Up">
         <RegisterPage />
+      </Window>
+    );
+  }
+
+  const handle = () => {
+    manager.createWindow(
+      <Window title="Chats">
+        <ChatList />
       </Window>
     );
   }
@@ -56,7 +65,8 @@ const AuthPage = () => {
             className="full-width form-button"
             isDisabled={loginInput.value.trim() && passInput.value.trim() ? false : true}
             isRipple
-            onClick={handleSign}
+            // onClick={handleSign}
+            onClick={handle}
           >
             Войти
           </Button>

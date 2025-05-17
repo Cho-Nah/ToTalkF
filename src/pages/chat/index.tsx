@@ -3,6 +3,8 @@ import ChatWidget from "./ui/ChatWidget";
 import "./ChatList.scss"
 import { TabList } from "../../lib/RangleUI/components";
 import { useState } from "react";
+import Notification from "../../features/notification/Notification";
+import CreateChat from "../../features/createChat/CreateChat";
 
 const ChatList = () => {
   // const [sendUserData, {isError}] = authAPI.useSendSignInMutation();
@@ -65,6 +67,9 @@ const ChatList = () => {
         />
         {chats.filter(cell => cell.tags.includes(currentTab)).map((chat, id) => <ChatWidget name={chat.name} desc={chat.lastMessage} chatId={id} key={id} />)}
       </div>
+
+      <CreateChat />
+      <Notification />
     </div>
     
   );

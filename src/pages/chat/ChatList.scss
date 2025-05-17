@@ -54,12 +54,13 @@
       text-overflow: ellipsis;
       white-space: nowrap;
       margin-bottom: 0.125rem;
-      color: #2e2e2e;
+      color: var(--color-text-title);
     }
 
     .caption {
       font-size: 0.875rem;
       color: #b1b0b0;
+      color: var(--color-text-subtitle);
     }
   }
 

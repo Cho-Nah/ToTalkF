@@ -1,0 +1,22 @@
+.create-chat-container {
+  position: absolute;
+  bottom: 0.5rem;
+  right: 0.5rem;
+  display: flex;
+  justify-content: center;
+
+  .circle-button {
+    width: 3rem;
+    height: 3rem;
+    padding: 0 !important;
+  }
+}
+
+.modal-buttons {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.create-button {
+  margin-top: 1rem !important;
+}
