@@ -3,9 +3,10 @@ import { io } from "socket.io-client";
 
 const socket = io("wss://localhost:3001");
 
-const messageApi = createApi({
+export const messageApi = createApi({
   reducerPath: "messageApi",
-  baseQuery: fetchBaseQuery({ baseUrl: "/" }),
+  baseQuery: fakeBaseQuery(),
+  tagTypes: ["Messages"],
   endpoints: (builder) => ({
     getMessage: builder.query({
       query: () => "getMessage",
@@ -30,7 +31,7 @@ socket.on("connect", () => {
 });
 
 socket.on("newMessage", (data) => {
-  messageApi.endpoints.getMessage.invalidate(); // Обновляем данные RTK Query при получении новых сообщений
+  // messageApi.endpoints.getMessage.invalidate(); // Обновляем данные RTK Query при получении новых сообщений
 });
 
 // export const { useGetMessageQuery, useSendMessageMutation } = messageApi;
