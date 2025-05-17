@@ -42,7 +42,8 @@ const WindowManager: React.FC<OwnProps> = ({ className,  children }) => {
 
   const createWindow = (window: React.ReactElement<WindowObject>) => {
     let id = ++windowId;
-
+    console.log(window);
+    
     setWindows(prev => [
       ...prev, 
       { ...window.props, id }

@@ -1,5 +1,5 @@
 :root {
-  --color-primary-rgb: 30, 215, 96 !important;
+  // --color-primary-rgb: 30, 215, 96 !important;
   --message-chat-block: #ebebeb;
   --message-chat-dark-block: #161616;
 }
@@ -15,14 +15,20 @@
 
 .flex-gap {
   display: flex;
-  // justify-content: space-between;
-  gap: 0.5rem;
+  width: 100%;
+  gap: 1rem;
 
   // & > * {
   //   flex: 1;
   // }
 }
 
+.apsolute-bottom {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+}
 
 .between {
   display: flex;
@@ -73,13 +79,13 @@
   margin-inline: auto;
 }
 
-.title {
+.block-title {
   font-size: 0.875rem;
   font-weight: 500;
   color: var(--color-text-title);
 }
 
-.caption {
+.block-caption {
   margin-top: 0.125rem;
   font-size: 0.875rem;
   font-weight: 400;

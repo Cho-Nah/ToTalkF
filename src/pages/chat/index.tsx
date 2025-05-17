@@ -1,6 +1,6 @@
 import ChatWidget from "./ui/ChatWidget";
 
-import "./ChatList.scss"
+import "./ChatList.scss";
 import { TabList } from "../../lib/RangleUI/components";
 import { useState } from "react";
 import Notification from "../../features/notification/Notification";
@@ -50,7 +50,6 @@ const ChatList = () => {
 
   return (
     <div className="layout Chatlist">
-      {/* <TabList></TabList>       */}
       <div className="layout-block list pad-0">
         <TabList
           className="pad-inline-05"

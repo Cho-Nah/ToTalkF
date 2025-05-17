@@ -1,5 +1,4 @@
 import { useContext, useState } from "react";
-import { authAPI } from "../../app/services/AuthService";
 import { Button, Input, RadioGroup } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignUpResponse } from "../../models/user";

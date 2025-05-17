@@ -1,0 +1,25 @@
+.block-title {
+  font-size: 1rem !important;
+  max-width: max-content;
+}
+
+.caption {
+  font-size: 0.875rem !important;
+  margin-top: 0.2rem;
+}
+
+.event {
+  padding: 0.875rem;
+  border-top: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.success {
+  color: var(--color-success);
+  font-size: 0.875rem !important;
+  margin-top: 0.2rem;
+}
+
+.small-link {
+  font-size: 0.875rem !important;
+}

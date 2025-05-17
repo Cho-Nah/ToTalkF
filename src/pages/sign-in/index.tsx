@@ -5,8 +5,10 @@ import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignInResponse } from "../../models/user";
 
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
+import MainPage from "../main";
+import QuestionsAnswers from "../q&a";
+import Notifications from "../notifications/Notifications";
 import RegisterPage from "../sign-up";
-import ChatList from "../chat";
 
 const AuthPage = () => {
   const manager = useContext(ManagerContext);
@@ -15,6 +17,21 @@ const AuthPage = () => {
   const loginInput = useInput("");
   const passInput = useInput("");
 
+  const handleQAOpen = () => {
+    manager.createWindow(
+      <Window title="Sign Up">
+        <QuestionsAnswers />
+      </Window>
+    );
+  }
+
+  const handleNatificationsOpen = () => {
+    manager.createWindow(
+      <Window title="Sign Up">
+        <Notifications />
+      </Window>
+    );
+  }
 
   const handleWindowTransfer = () => {
     manager.createWindow(
@@ -26,8 +43,11 @@ const AuthPage = () => {
 
   const handle = () => {
     manager.createWindow(
-      <Window title="Chats">
-        <ChatList />
+      <Window title="Chats" options={[
+          {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
+          {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
+      ]}>
+        <MainPage/>
       </Window>
     );
   }

@@ -8,10 +8,11 @@ import "./CreateChat.scss";
 const CreateChat = () => {
   const [isModalOpen, openModal, closeModal] = useFlag();
   const [isSwitched, setIsSwitched] = useState(false);
-  const {onChange, value} = useInput();
+  const nameInp = useInput();
+  const contactInp = useInput();
 
   const handleCreateChat = () => {
-    console.log({ name: value, forOrg: isSwitched }); 
+    console.log({ name: nameInp.value, contact: contactInp.value, forOrg: isSwitched });
     closeModal();
   }
   
@@ -31,8 +32,16 @@ const CreateChat = () => {
         <Input 
           className="form-margin"
           placeholder="Chat name"
-          onChange={onChange}
-          value={value}
+          onChange={nameInp.onChange}
+          value={nameInp.value}
+        />
+
+        <Input 
+          className="form-margin"
+          placeholder="Contacts"
+          onChange={contactInp.onChange}
+          value={contactInp.value}
+
         />
 
         <div className="row">

@@ -3,7 +3,6 @@ import useEnv from '../lib/RangleUI/hooks/useEnv';
 import Display from '../lib/RangleUI/display';
 import { Window, WindowManager } from '../lib/RangleUI/components';
 
-import ChatList from '../pages/chat';
 import AuthPage from '../pages/sign-in';
 
 function App() {
@@ -12,6 +11,7 @@ function App() {
   useEffect(() => {
     Display.updateRoot(env);
   }, [env]);
+
 
   return (
     <div className='App no-select'>
@@ -24,8 +24,8 @@ function App() {
         }]}>
           <Welcome />
         </Window> */}
-
-        <Window title='Чаты'>
+        <Window title='Sign In'>
+          {/* <MainPage /> */}
           <AuthPage />
           {/* <ChatList /> */}
         </Window>
