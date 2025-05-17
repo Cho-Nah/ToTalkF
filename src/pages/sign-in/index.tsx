@@ -1,13 +1,27 @@
+import { useContext } from "react";
 import { authAPI } from "../../app/services/AuthService";
-import { Button, Input } from "../../lib/RangleUI/components";
+import { Button, Input, Window } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignInResponse } from "../../models/user";
 
-const MainPage = () => {
+import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
+import RegisterPage from "../sign-up";
+
+const AuthPage = () => {
+  const manager = useContext(ManagerContext);
+  const [sendUserData] = authAPI.useSendSignInMutation();
+
   const loginInput = useInput("");
   const passInput = useInput("");
 
-  const [sendUserData, {}] = authAPI.useSendSignInMutation();
+
+  const handleWindowTransfer = () => {
+    manager.createWindow(
+      <Window title="Sign Up">
+        <RegisterPage />
+      </Window>
+    );
+  }
 
   const handleSign = async () => {
     const signData: SignInResponse = { login: loginInput.value, password: passInput.value}
@@ -16,33 +30,41 @@ const MainPage = () => {
     passInput.clear();
 
     const response = await sendUserData(signData);
+    console.log(response);
+    console.log();
   }
 
   return (
     <div className="sign-in layout">
       <div className="layout-block">
-        <Input 
-          placeholder="Login" 
-          value={loginInput.value}
-          onChange={loginInput.onChange}
+        <div className="auth-form">
+          <Input 
+            className="form-margin"
+            placeholder="Login" 
+            value={loginInput.value}
+            onChange={loginInput.onChange}
+          />
 
-        />
-        <Input 
-          placeholder="Password"
-          value={passInput.value}
-          onChange={passInput.onChange}
-        />
+          <Input 
+            className="form-margin"
+            placeholder="Password"
+            value={passInput.value}
+            onChange={passInput.onChange}
+          />
 
-        <Button
-          isDisabled={loginInput.value.trim() && passInput.value.trim() ? false : true}
-          // isRipple
-          onClick={handleSign}
-        >
-          Войти
-        </Button>
+          <Button
+            className="full-width form-button"
+            isDisabled={loginInput.value.trim() && passInput.value.trim() ? false : true}
+            isRipple
+            onClick={handleSign}
+          >
+            Войти
+          </Button>
+            Don't have an account? <a className="link" style={{cursor: "pointer"}} onClick={handleWindowTransfer}>Sign up</a>
+        </div>
       </div>
     </div>
   );
 }
 
-export default MainPage;
+export default AuthPage;

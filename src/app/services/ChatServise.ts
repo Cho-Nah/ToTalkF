@@ -1,11 +1,12 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query";
+import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { io } from "socket.io-client";
 
 const socket = io('wss://localhost:3001');
 
 const messageApi = createApi({
   reducerPath: 'messageApi',
-  baseQuery: fetchBaseQuery({ baseUrl: '/' }),
+  baseQuery: fakeBaseQuery(),
+  tagTypes: ['Messages'],
   endpoints: (builder) => ({
     getMessage: builder.query({
       query: () => 'getMessage',
@@ -16,7 +17,7 @@ const messageApi = createApi({
         // Отправляем сообщение через сокет
         socket.emit('sendMessage', { message });
       },
-      // Необязательный колбэк-функция, которая вызывается после успешной отправки сообщения
+      invalidatesTags: ["Messages"],
       onQueryStarted: () => {
         console.log('Sending message...');
       },
@@ -29,7 +30,7 @@ socket.on('connect', () => {
 });
 
 socket.on('newMessage', (data) => {
-  messageApi.endpoints.getMessage.invalidate(); // Обновляем данные RTK Query при получении новых сообщений
+  // messageApi.endpoints.getMessage.invalidate(); // Обновляем данные RTK Query при получении новых сообщений
 });
 
 // export const { useGetMessageQuery, useSendMessageMutation } = messageApi;

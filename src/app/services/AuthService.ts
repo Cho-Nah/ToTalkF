@@ -3,7 +3,7 @@ import type { IUser, SignInResponse } from "../../models/user";
 
 export const authAPI = createApi({
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:5000/api'}),
+    baseQuery: fetchBaseQuery({baseUrl: 'http://192.168.173.37:8080/api'}),
     tagTypes: ['sign-in'],
     endpoints: (build) => ({
         sendSignIn: build.mutation<IUser, SignInResponse>({

@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import useEnv from '../lib/RangleUI/hooks/useEnv';
 import Display from '../lib/RangleUI/display';
 import { Window, WindowManager } from '../lib/RangleUI/components';
-import MainPage from '../pages/sign-in';
-import useInput from '../lib/RangleUI/hooks/useInput';
+
+import ChatList from '../pages/chat';
 
 function App() {
   const env = useEnv();
@@ -24,8 +24,8 @@ function App() {
           <Welcome />
         </Window> */}
 
-        <Window title='Sign in'>
-          <MainPage />
+        <Window title='Чаты'>
+          <ChatList />
         </Window>
       </WindowManager>
     </div>
