@@ -1,5 +1,6 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { io } from "socket.io-client";
+// import type { Message } from "../../models/user";
 
 const socket = io("wss://localhost:3001");
 
@@ -8,13 +9,13 @@ export const messageApi = createApi({
   baseQuery: fakeBaseQuery(),
   tagTypes: ["Messages"],
   endpoints: (builder) => ({
-    getMessage: builder.query({
+    getMessage: builder.query<string, number>({
       query: () => "getMessage",
     }),
     sendMessage: builder.mutation<void, string>({
       // заменить на реальные значения
       // Определяем функцию, которая будет отправлять сообщение на сервер
-      query: (message) => {
+      query: (message: string) => {
         // Отправляем сообщение через сокет
         socket.emit("sendMessage", { message });
       },
@@ -30,8 +31,8 @@ socket.on("connect", () => {
   console.log("[WS Service]: connected to server");
 });
 
-socket.on("newMessage", (data) => {
+socket.on("newMessage", () => {
   // messageApi.endpoints.getMessage.invalidate(); // Обновляем данные RTK Query при получении новых сообщений
 });
 
-// export const { useGetMessageQuery, useSendMessageMutation } = messageApi;
+export const { useGetMessageQuery, useSendMessageMutation } = messageApi;

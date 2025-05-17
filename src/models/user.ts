@@ -14,3 +14,8 @@ export interface SignUpResponse {
   name: string;
   role: string;
 }
+
+export interface getMessage {
+  text: string;
+  chatName: string;
+}

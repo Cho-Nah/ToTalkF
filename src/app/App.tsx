@@ -1,9 +1,12 @@
-import { useEffect } from 'react'
-import useEnv from '../lib/RangleUI/hooks/useEnv';
-import Display from '../lib/RangleUI/display';
-import { Window, WindowManager } from '../lib/RangleUI/components';
+import { useEffect } from "react";
+import useEnv from "../lib/RangleUI/hooks/useEnv";
+import Display from "../lib/RangleUI/display";
+import { Window, WindowManager } from "../lib/RangleUI/components";
 
-import ChatList from '../pages/chat';
+import ChatList from "../pages/chat";
+
+import MainPage from "../pages/main/Main";
+import Welcome from "../components/Welcome";
 
 function App() {
   const env = useEnv();
@@ -13,29 +16,34 @@ function App() {
   }, [env]);
 
   return (
-    <div className='App no-select'>
-      <WindowManager>
-        {/* <Window title="Starting" options={[{
-          color: 'error',
-          children: "Delete",
-          isRipple: true,
-          icon: {name: "delete"},
-        }]}>
-          <Welcome />
-        </Window> */}
-
-        <Window title='Чаты'>
-          <ChatList />
-        </Window>
-      </WindowManager>
+    <div className="App no-select">
+      {/* <WindowManager> */}
+      {/* <Window
+          title="Starting"
+          options={[
+            {
+              color: "error",
+              children: "Delete",
+              isRipple: true,
+              icon: { name: "delete" },
+            },
+          ]}
+        > */}
+      {/* <Welcome /> */}
+      {/* </Window> */}
+      {/* </WindowManager> */}
+      {/* <Window title="Чаты">
+        <ChatList />
+      </Window> */}
+      <MainPage />
     </div>
-  )
+  );
 }
 
 export default App;
 
-
-{/* <div className='layout-block'>
+{
+  /* <div className='layout-block'>
   <div className="between">
     <Button color='success' isRipple icon={{name: 'favorite', isFilled: true}}>
       login
@@ -45,4 +53,5 @@ export default App;
       Subcribe
     </Button>
   </div>  
-</div> */}
+</div> */
+}
