@@ -3,6 +3,7 @@ import { Button, Input } from "../../../lib/RangleUI/components";
 import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import Message from "./Message";
+import { useSendMessageMutation } from "../../../app/services/ChatServise";
 
 const Chat = () => {
   const messageInput = useInput("");
@@ -28,11 +29,21 @@ const Chat = () => {
     },
   ]);
 
-  const handleSendMessage = () => {
+  const [sendMessage] = useSendMessageMutation();
+
+  const handleSendMessage = async () => {
+    const content = messageInput.value.trim();
+    if (!content) return;
+
     setMessages((prev) => [
       ...prev,
-      { senderId: 1, content: messageInput.value, date: new Date() },
+      { senderId: myId, content, date: new Date() },
     ]);
+    try {
+      await sendMessage(content);
+    } catch (error) {
+      console.log("Ошибка при отправке сообщения");
+    }
     messageInput.clear();
   };
 

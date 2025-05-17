@@ -2,9 +2,10 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authAPI } from "../services/AuthService";
 import { registerAPI } from "../services/RegisterService";
 import { messageApi } from "../services/ChatServise";
+import userReducer from "../../models/UserSlice";
 
 const rootReducer = combineReducers({
-  // userReducer,
+  user: userReducer,
   [registerAPI.reducerPath]: registerAPI.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [messageApi.reducerPath]: messageApi.reducer,

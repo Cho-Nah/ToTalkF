@@ -19,8 +19,8 @@ function App() {
 
   return (
     <div className="App no-select">
-      {/* <WindowManager> */}
-      {/* <Window
+      <WindowManager>
+        <Window
           title="Starting"
           options={[
             {
@@ -30,14 +30,14 @@ function App() {
               icon: { name: "delete" },
             },
           ]}
-        > */}
-      {/* <Welcome /> */}
-      {/* </Window> */}
-      {/* </WindowManager> */}
-      {/* <Window title="Чаты">
+        >
+          <Welcome />
+        </Window>
+      </WindowManager>
+      <Window title="Чаты">
         <ChatList />
-      </Window> */}
-      <MainPage />
+      </Window>
+      {/* <MainPage /> */}
       {/* <MasterClassPage /> */}
     </div>
   );
