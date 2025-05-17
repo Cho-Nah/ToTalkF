@@ -6,6 +6,8 @@ import { Window, WindowManager } from "../lib/RangleUI/components";
 import ChatList from "../pages/chat";
 
 import MainPage from "../pages/main/Main";
+import MasterClassPage from "../pages/masterClass/MasterClass";
+
 import Welcome from "../components/Welcome";
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
         <ChatList />
       </Window> */}
       <MainPage />
+      {/* <MasterClassPage /> */}
     </div>
   );
 }

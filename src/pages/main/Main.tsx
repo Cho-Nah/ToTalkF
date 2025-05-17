@@ -5,43 +5,60 @@ function MainPage() {
     <>
       <div className="WindowExample layout">
         <div className="layout-block">
+          <div className="layout-block">
+            <div className="layout-title">Header</div>
+          </div>
           <div className="container-cards">
-            Master Class
-            <div className="layout-subtitle">Short information</div>
-            <br />
-            <br />
             <div className="down-block">
-              Developed by <p>0/100</p>
+              Name <p>6/14</p>
+            </div>
+
+            <div className="block-info">
+              <div>Developed by</div>
+              <div className="time">Time</div>
+              <div>People queue</div>
             </div>
           </div>
+        </div>
 
+        <div className="layout-block">
           <div className="container-cards">
-            Master Class
-            <div className="layout-subtitle">Short information</div>
-            <br />
-            <br />
             <div className="down-block">
-              Developed by <p>0/100</p>
+              Name <p>6/14</p>
+            </div>
+
+            <div className="block-info">
+              <div>Developed by</div>
+              <div className="time">Time</div>
+              <div>People queue</div>
             </div>
           </div>
+        </div>
 
+        <div className="layout-block">
           <div className="container-cards">
-            Master Class
-            <div className="layout-subtitle">Short information</div>
-            <br />
-            <br />
             <div className="down-block">
-              Developed by <p>0/100</p>
+              Name <p>6/14</p>
+            </div>
+
+            <div className="block-info">
+              <div>Developed by</div>
+              <div className="time">Time</div>
+              <div>People queue</div>
             </div>
           </div>
+        </div>
 
+        <div className="layout-block">
           <div className="container-cards">
-            Master Class
-            <div className="layout-subtitle">Short information</div>
-            <br />
-            <br />
             <div className="down-block">
-              Developed by <p>0/100</p>
+              Name <p>6/14</p>
+            </div>
+
+            <div className="block-info">
+              <div>Developed by</div>
+              <div className="time">Time</div>
+              <div>People queue</div>
             </div>
           </div>
         </div>
