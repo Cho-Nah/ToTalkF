@@ -19,7 +19,7 @@ const AuthPage = () => {
 
   const handleQAOpen = () => {
     manager.createWindow(
-      <Window title="Sign Up">
+      <Window title="Questions & Answers">
         <QuestionsAnswers />
       </Window>
     );
@@ -27,7 +27,7 @@ const AuthPage = () => {
 
   const handleNatificationsOpen = () => {
     manager.createWindow(
-      <Window title="Sign Up">
+      <Window title="Notifications">
         <Notifications />
       </Window>
     );
@@ -41,6 +41,17 @@ const AuthPage = () => {
     );
   }
 
+  const handleRegisterEnd = () => {
+    manager.createWindow(
+      <Window title="Chats" options={[
+          {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
+          {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
+      ]}>
+        <MainPage/>
+      </Window>
+    );
+  }
+
   const handleSign = async () => {
     const signData: SignInResponse = { login: loginInput.value, password: passInput.value}
 
@@ -50,16 +61,11 @@ const AuthPage = () => {
     const response = await sendUserData(signData);
     console.log(response);
 
-    if (!response.data) return;
+    if (response.data?.token) {
+      localStorage.setItem("token", response.data.token);
 
-    manager.createWindow(
-      <Window title="Chats" options={[
-          {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
-          {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
-      ]}>
-        <MainPage/>
-      </Window>
-    );
+      handleRegisterEnd();
+    } 
   }
 
   return (

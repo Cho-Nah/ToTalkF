@@ -5,18 +5,28 @@ import type { SignUpResponse } from "../../models/user";
 import { registerAPI } from "../../app/services/RegisterService";
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 import MainPage from "../main";
+import { authAPI } from "../../app/services/AuthService";
 
 const RegisterPage = () => {
   const manager = useContext(ManagerContext);
-  const [sendUserData] = registerAPI.useCreatePostMutation();
+  const [registerUser] = registerAPI.useCreatePostMutation();
+  const [authUser] = authAPI.useSendSignInMutation();
 
   const loginInput = useInput("");
   const passInput = useInput("");
   const nameInput = useInput("");
   const [sepcRadio, setSpecRadio] = useState("");
 
+    const handleWindowTransfer = () => {
+    manager.createWindow(
+      <Window title="Sign Up">
+        <MainPage />
+      </Window>
+    );
+  }
+
   const handleSign = async () => {
-    const signData: SignUpResponse = { 
+    const signData: SignUpResponse = {
       login: loginInput.value,
       password: passInput.value,
       name: nameInput.value,
@@ -27,21 +37,22 @@ const RegisterPage = () => {
     passInput.clear();
     nameInput.clear();
 
-    const response = await sendUserData(signData);
+    const response = await registerUser(signData);
+    console.log(response.data);
 
-    if (response.data && response.data.token) {
-      localStorage.setItem("token", response.data.token);
+    if (response.data?.status) {
+      const response =await authUser({
+        login: signData.login,
+        password: signData.password
+      });
 
-      handleWindowTransfer();
-    } 
-  }
+      if (response.data?.token) {
+        localStorage.setItem("token", response.data.token);
+        console.log("token:", response.data.token);
 
-  const handleWindowTransfer = () => {
-    manager.createWindow(
-      <Window title="Sign Up">
-        <MainPage />
-      </Window>
-    );
+        handleWindowTransfer();
+      }
+    }
   }
 
   return (
@@ -92,7 +103,7 @@ const RegisterPage = () => {
             isRipple
             onClick={handleSign}
           >
-            Зарегестрироваться
+            Зарегистрироваться
           </Button>
         </div>
       </div>
