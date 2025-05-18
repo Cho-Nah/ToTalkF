@@ -37,7 +37,7 @@ export const chatApi = createApi({
   baseQuery: fakeBaseQuery(),
   tagTypes: ['Messages'],
   endpoints: (builder) => ({
-    connect: builder.query<Message[], number>({
+    connect: builder.query<MessageType[], number>({
       queryFn: () => ({ data: [] }),
       async onCacheEntryAdded(
         chatId,
@@ -45,7 +45,7 @@ export const chatApi = createApi({
       ) {
         await initializeSocket(chatId);
         
-        const messageHandler = (message: Message) => {
+        const messageHandler = (message: MessageType) => {
           updateCachedData((draft) => {
             draft.push(message);
           });
