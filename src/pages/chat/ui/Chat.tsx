@@ -20,10 +20,11 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
 
   const myMessages = useAppSelector(state => state.messages);
   const dispatch = useAppDispatch();
-  
+
   const messageInput = useInput("");
 
   useEffect(() => {
+    if (messages.length === 0) return;
     dispatch(setMessages(messages));
   }, [messages]);
 
