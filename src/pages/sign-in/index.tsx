@@ -13,16 +13,16 @@ import RegisterPage from "../sign-up";
 const AuthPage = () => {
   const manager = useContext(ManagerContext);
   const [sendUserData] = authAPI.useSendSignInMutation();
+  const {data: userData, isLoading} = authAPI.useGetUserQuery({});
 
   const loginInput = useInput("");
   const passInput = useInput("");
 
   useEffect(() => {
-    const {data: userData} = authAPI.useGetUserQuery({});
     if (!userData) return;
-
+    console.log(userData);
     handleRegisterEnd();
-  }, []);
+  }, [isLoading]);
 
   const handleQAOpen = () => {
     manager.createWindow(

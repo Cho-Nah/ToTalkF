@@ -1,7 +1,7 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { io } from "socket.io-client";
 
-const socket = io('wss://localhost:3001');
+const socket = io('wss://localhost:8081');
 
 const messageApi = createApi({
   reducerPath: 'messageApi',
