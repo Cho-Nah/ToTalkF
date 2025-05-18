@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, Icon, Ripple, Window } from "../../lib/RangleUI/components";
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 
@@ -45,7 +45,7 @@ const Notification = () => {
   return (
     isNotifyOpen && 
     <div className="notify-container">
-      <div className="notify ripple" onClick={handleWindowTransfer}>
+      <div className="notify-block ripple" onClick={handleWindowTransfer}>
           {/* <Badge 
             color="primary"
             className="icon-wrapper"
