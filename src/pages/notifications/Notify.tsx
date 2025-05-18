@@ -30,7 +30,7 @@ const Notify: React.FC<INotify> = ({ icon, label, sublabel, window }) => {
   }
 
   return (
-    <div className="notify-container" onClick={handleWindowTransfer}>
+    <div className=".notify-container-block" onClick={handleWindowTransfer}>
       <div className="notify ripple" 
       // onClick={handleWindowTransfer}
       >
