@@ -6,6 +6,7 @@ import { Window, WindowManager } from "../lib/RangleUI/components";
 import AuthPage from "../pages/sign-in";
 
 import MasterClassPage from "../pages/masterClass/MasterClass";
+import MainPage from "../pages/main";
 
 function App() {
   const env = useEnv();
@@ -39,8 +40,8 @@ function App() {
       {/* <Window title="Чаты">
         <ChatList />
       </Window> */}
-      {/* <MainPage /> */}
-      <MasterClassPage />
+      <MainPage />
+      {/* <MasterClassPage tagName={""} slots={0} selectedSlots={0} /> */}
     </div>
   );
 }

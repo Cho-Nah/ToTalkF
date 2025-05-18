@@ -1,4 +1,4 @@
-import { createApi } from "@reduxjs/toolkit/query";
+import { createApi } from "@reduxjs/toolkit/query/react";
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import type { IEvent } from "../../models/event";
 
@@ -13,3 +13,5 @@ export const MasterClassApi = createApi({
     }),
   }),
 });
+
+export const { useGetEventsQuery } = MasterClassApi;
