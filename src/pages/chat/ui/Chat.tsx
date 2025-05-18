@@ -5,6 +5,9 @@ import { chatApi } from "../../../app/services/ChatServise";
 import { authAPI } from "../../../app/services/AuthService";
 
 import Message from "./Message";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { setMessages } from "../slice";
 
 type OwnProps = {
   chatid: number
@@ -14,7 +17,15 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
   const { data: userData } = authAPI.useGetUserQuery({});
   const { data: messages = [] } = chatApi.useConnectQuery(chatid);
   const [sendWsMessage] = chatApi.useSendMessageMutation();
+
+  const myMessages = useAppSelector(state => state.messages);
+  const dispatch = useAppDispatch();
+  
   const messageInput = useInput("");
+
+  useEffect(() => {
+    dispatch(setMessages(messages));
+  }, [messages]);
 
   const handleSendMessage = async (message: string) => {
     if (!messageInput.value.trim()) return;
@@ -33,7 +44,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     <div className="layout">
       <div className="layout-block Chat">
           <div id="messages">
-          {messages.length !== 0 && messages.map((message, id) => <Message
+          {myMessages.length !== 0 && messages.map((message, id) => <Message
             content={message.content}
             isOwn={message.sender === userData?.name}
             sender={messages[id + 1] && messages[id + 1].sender === message.sender

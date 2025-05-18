@@ -66,13 +66,7 @@ export const chatApi = createApi({
           }
         }
       },
-      providesTags: (result) =>
-        result
-          ? [
-              ...result.map(( _, idx ) => ({ type: 'Messages' as const, idx })),
-              { type: 'Messages', id: 'LIST' }
-            ]
-          : [{ type: 'Messages', id: 'LIST' }],
+      providesTags: ['Messages'],
     }),
 
     sendMessage: builder.mutation<void, rawMesage>({
@@ -83,15 +77,10 @@ export const chatApi = createApi({
           if (socket?.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({ message, sender }));
             resolve({ data: undefined });
-          } else {
-            socket?.addEventListener('open', () => {
-              socket?.send(JSON.stringify({ message, sender }));
-              resolve({ data: undefined });
-            }, { once: true });
           }
         });
       },
-      invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
+      invalidatesTags: ['Messages'],
     }),
   }),
 });
