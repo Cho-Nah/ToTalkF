@@ -15,14 +15,6 @@ function App() {
   return (
     <div className='App no-select'>
       <WindowManager>
-        {/* <Window title="Starting" options={[{
-          color: 'error',
-          children: "Delete",
-          isRipple: true,
-          icon: {name: "delete"},
-        }]}>
-          <Welcome />
-        </Window> */}
         <Window title='Sign In'>
           {/* <MainPage /> */}
           <AuthPage />
@@ -34,16 +26,3 @@ function App() {
 }
 
 export default App;
-
-
-{/* <div className='layout-block'>
-  <div className="between">
-    <Button color='success' isRipple icon={{name: 'favorite', isFilled: true}}>
-      login
-    </Button>
-
-    <Button color='error' type='secondary' isRipple icon={{name: 'favorite', isFilled: true, className: 'icon-m0'}}>
-      Subcribe
-    </Button>
-  </div>  
-</div> */}
