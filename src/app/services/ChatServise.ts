@@ -8,7 +8,7 @@ type Message = {
 };
 
 let socket: WebSocket | null = null;
-let messageListeners: Array<(message: Message[]) => void> = [];
+let messageListeners: Array<(message: Message) => void> = [];
 let connectionPromise: Promise<void> | null = null;
 
 const initializeSocket = (chatId: number) => {
@@ -23,6 +23,7 @@ const initializeSocket = (chatId: number) => {
     });
 
     socket.onmessage = (event) => {
+      console.log(event.data);
       const message = JSON.parse(event.data);
       messageListeners.forEach(listener => listener(message));
     };
@@ -43,10 +44,9 @@ export const chatApi = createApi({
       ) {
         await initializeSocket(chatId);
         
-        const messageHandler = (message: Message[]) => {
+        const messageHandler = (message: Message) => {
           updateCachedData((draft) => {
-            console.log(message);
-            draft = message;
+            draft.push(message);
           });
         };
 

@@ -1,7 +1,6 @@
 import { useContext } from "react";
 import { Ripple, Window } from "../../../lib/RangleUI/components";
 import type { IEvent } from "../../../models/event";
-import { getTime } from "../../../utils/date";
 
 import "./Event.scss";
 import { ManagerContext } from "../../../lib/RangleUI/components/ui/WindowManager";
