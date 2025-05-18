@@ -2,16 +2,28 @@ import { useContext, useState } from "react";
 import { Button, Window } from "../../lib/RangleUI/components"
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 import Chat from "../chat/ui/Chat";
+import { connectWsApi } from "../../app/services/ConnectWs";
+import { chatApi } from "../../app/services/ChatServise";
 
 type OwnProps = {
+  id: number
   tagName: string;
   slots: number;
   selectedSlots: number;
 }
 
-const EventPage: React.FC<OwnProps> = ({tagName, slots, selectedSlots}) => {
+const EventPage: React.FC<OwnProps> = ({tagName, slots, selectedSlots, id}) => {
   const manager = useContext(ManagerContext);
   const [isRegistered, setIsRegistered] = useState(false);
+
+  const handleCreateChat = () => {
+    const {data} = connectWsApi.useConnectQuery({});
+    const {data: messages} = chatApi.useGetMessageQuery(id);
+
+    console.log(data, messages);
+
+    handleWindowTransfer();
+  }
 
   const handleWindowTransfer = () => {
       manager.createWindow(
@@ -29,7 +41,7 @@ const EventPage: React.FC<OwnProps> = ({tagName, slots, selectedSlots}) => {
           children="Чат"
           isDisabled={isRegistered ? false : true}
           isRipple
-          onClick={handleWindowTransfer}
+          onClick={handleCreateChat}
         />
       </div>
       <div className="layout-block">

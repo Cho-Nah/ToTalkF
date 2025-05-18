@@ -5,8 +5,11 @@ import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import Message from "./Message";
 import Keyboard from "../../../lib/RangleUI/utils/keyboard";
+import { chatApi } from "../../../app/services/ChatServise";
 
 const Chat = () => {
+  const [sendWsMessage] = chatApi.useSendMessageMutation();
+
   const messageInput = useInput("");
   const myId = "Me";
   const [messages, setMessages] = useState([{
@@ -20,14 +23,15 @@ const Chat = () => {
     content: "Ему рыбного курсивных свой проектах ее своих переписали ведущими!", date: new Date()
   }]);
 
-  const handleSendMessage = () => {
+  const handleSendMessage = async (message: string) => {
     if (!messageInput.value.trim()) return;
-    setMessages(prev => [...prev, {sender: "Me", content: messageInput.value, date: new Date()}]);
     messageInput.clear();
+
+    await sendWsMessage(message);
+    setMessages(prev => [...prev, {sender: "Me", content: messageInput.value, date: new Date()}]);
   }
 
-  Keyboard.register("Enter", handleSendMessage);
-
+  // Keyboard.register("Enter", handleSendMessage);
   // const chatMessages = messages ? messages.filter(message => message.chatId === currentChat?.id) : [];
   
   return (
@@ -56,7 +60,7 @@ const Chat = () => {
               className="send-button"
               isRipple
               isDisabled={messageInput.value.trim() ? false : true}
-              onClick={handleSendMessage}
+              onClick={() => handleSendMessage(messageInput.value)}
             >
               <Icon name="send" isFilled />
             </Button>
@@ -64,6 +68,6 @@ const Chat = () => {
         </div>
       </div>
     </div>
-  )
+  );
 }
 export default Chat;

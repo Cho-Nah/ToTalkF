@@ -1,9 +1,12 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { io } from "socket.io-client";
+import { store } from "../Store/store";
 
-const socket = io('wss://localhost:8081');
+const token = localStorage.getItem("token")
 
-const messageApi = createApi({
+const socket = io(`ws://localhost:8081ws?token=${token}`);
+
+export const chatApi = createApi({
   reducerPath: 'messageApi',
   baseQuery: fakeBaseQuery(),
   tagTypes: ['Messages'],
@@ -22,15 +25,32 @@ const messageApi = createApi({
         console.log('Sending message...');
       },
     }),
+
+    disconnectSocket: builder.mutation<void, void>({
+      query: () => {
+        socket.disconnect();
+        return { data: undefined };
+      },
+    }),
   }),
 });
 
 socket.on('connect', () => {
   console.log('[WS Service]: connected to server');
+  console.log(socket.connected);
 });
 
-socket.on('newMessage', (data) => {
-  // messageApi.endpoints.getMessage.invalidate(); // Обновляем данные RTK Query при получении новых сообщений
+socket.on('message', (data) => {
+  console.log("получено сообщение", data);
+  
+  store.dispatch(
+    chatApi.util.invalidateTags(['Messages'])
+  );
+});
+
+socket.on('disconnect', () => {
+  console.log("disconnected");
+  console.log(socket.disconnected);
 });
 
 // export const { useGetMessageQuery, useSendMessageMutation } = messageApi;
