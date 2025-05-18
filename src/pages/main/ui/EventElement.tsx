@@ -13,7 +13,7 @@ const EventElement: React.FC<IEvent> = ({name, slots, selectedSlots, tagName, ti
   const handleWindowTransfer = () => {
     manager.createWindow(
       <Window title={`${name} Event`}>
-        <EventPage tagName={tagName} selectedSlots={selectedSlots} slots={slots} id={1}/>
+        <EventPage tagName={tagName} selectedSlots={selectedSlots} slots={slots} id={1} />
       </Window>
     );
   }

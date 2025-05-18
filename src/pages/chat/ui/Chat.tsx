@@ -5,23 +5,31 @@ import "./Chat.scss";
 import Message from "./Message";
 import { chatApi, setupSocketListeners } from "../../../app/services/ChatServise";
 import { store } from "../../../app/Store/store";
+import { connectWsApi } from "../../../app/services/ConnectWs";
 
-const Chat = () => {
+type OwnProps = {
+  chatid: number
+}
+
+const Chat: React.FC<OwnProps> = ({chatid}) => {
+  const {data} = connectWsApi.useConnectQuery({});
+  const {data: messages} = chatApi.useGetMessageQuery(chatid);
+
   setupSocketListeners(store);
   const [sendWsMessage] = chatApi.useSendMessageMutation();
 
   const messageInput = useInput("");
   const myId = "Me";
-  const [messages, setMessages] = useState([{
-    sender: "Pete",
-    content: "Далеко-далеко за словесными горами в стране гласных и согласных", date: new Date()
-  }, {
-    sender: "Me",
-    content: "Грамматики снова заманивший моей жаренные заголовок имеет своих маленькая, точках сих.", date: new Date()
-  }, {
-    sender: "YXUNGGG",
-    content: "Ему рыбного курсивных свой проектах ее своих переписали ведущими!", date: new Date()
-  }]);
+  // const [messages, setMessages] = useState([{
+  //   sender: "Pete",
+  //   content: "Далеко-далеко за словесными горами в стране гласных и согласных", date: new Date()
+  // }, {
+  //   sender: "Me",
+  //   content: "Грамматики снова заманивший моей жаренные заголовок имеет своих маленькая, точках сих.", date: new Date()
+  // }, {
+  //   sender: "YXUNGGG",
+  //   content: "Ему рыбного курсивных свой проектах ее своих переписали ведущими!", date: new Date()
+  // }]);
 
   const handleSendMessage = async (message: string) => {
     if (!messageInput.value.trim()) return;
