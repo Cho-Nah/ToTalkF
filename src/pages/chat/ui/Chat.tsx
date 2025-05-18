@@ -1,13 +1,13 @@
-
 import { useState } from "react";
 import { Button, Icon, Input } from "../../../lib/RangleUI/components";
 import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import Message from "./Message";
-import Keyboard from "../../../lib/RangleUI/utils/keyboard";
-import { chatApi } from "../../../app/services/ChatServise";
+import { chatApi, setupSocketListeners } from "../../../app/services/ChatServise";
+import { store } from "../../../app/Store/store";
 
 const Chat = () => {
+  setupSocketListeners(store);
   const [sendWsMessage] = chatApi.useSendMessageMutation();
 
   const messageInput = useInput("");

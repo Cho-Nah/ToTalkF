@@ -1,10 +1,18 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import { io } from "socket.io-client";
-import { store } from "../Store/store";
+import { io, Socket } from "socket.io-client";
 
-const token = localStorage.getItem("token")
+const token = localStorage.getItem("token");
+let socket: Socket;
 
-const socket = io(`ws://localhost:8081ws?token=${token}`);
+export const initSocket = () => {
+  const token = localStorage.getItem("token");
+  socket = io("ws://localhost:8081", {
+    path: "/ws",
+    transports: ["websocket"],
+    query: { token }
+  });
+  return socket;
+};
 
 export const chatApi = createApi({
   reducerPath: 'messageApi',
@@ -35,22 +43,19 @@ export const chatApi = createApi({
   }),
 });
 
-socket.on('connect', () => {
-  console.log('[WS Service]: connected to server');
-  console.log(socket.connected);
-});
-
-socket.on('message', (data) => {
-  console.log("получено сообщение", data);
+export const setupSocketListeners = (store: any) => {
+  if (!socket) initSocket();
   
-  store.dispatch(
-    chatApi.util.invalidateTags(['Messages'])
-  );
-});
+  socket.on('connect', () => {
+    console.log('Socket connected');
+    
+    socket.on('message', (data) => {
+      console.log("Получено сообщение", data);
+      store.dispatch(chatApi.util.invalidateTags(['Messages']));
+    });
+  });
 
-socket.on('disconnect', () => {
-  console.log("disconnected");
-  console.log(socket.disconnected);
-});
-
-// export const { useGetMessageQuery, useSendMessageMutation } = messageApi;
+  socket.on('disconnect', () => {
+    console.log("Socket disconnected");
+  });
+};
