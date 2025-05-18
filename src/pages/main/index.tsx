@@ -5,7 +5,6 @@ import type { IEvent } from "../../models/event";
 import EventElement from "./ui/EventElement";
 import CreateChat from "../../features/createChat/CreateChat";
 import { authAPI } from "../../app/services/AuthService";
-import { useAppSelector } from "../../hooks/redux";
 
 const MainPage = () => {
   const [currentTab, setCurrentTab] = useState("All Events");

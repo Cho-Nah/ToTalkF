@@ -8,8 +8,8 @@ export const messagesSlice = createSlice({
   name: "messages",
   initialState,
   reducers: {
-    setMessages(state, action: PayloadAction<MessageType>) {
-      state.push(action.payload);
+    setMessages(state, action: PayloadAction<MessageType[]>) {
+      state.push(action.payload[0]);
     },
   },
 });

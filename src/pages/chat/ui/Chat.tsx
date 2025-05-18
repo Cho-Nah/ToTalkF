@@ -24,8 +24,9 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
   const messages = useAppSelector(state => state.messages);
 
   useEffect(() => {
-    // ts-ignore
-    dispatch(setMessages(message));
+    if (message) {
+      dispatch(setMessages(message));
+    }
   }), [message];
 
 
