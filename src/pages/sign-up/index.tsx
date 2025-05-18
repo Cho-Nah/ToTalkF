@@ -38,7 +38,7 @@ const RegisterPage = () => {
 
     const response = await sendUserData(signData);
 
-    if (response) {
+    if (response.data) {
       dispatch(setName(response.data.name));
       dispatch(setRole(response.data.role));
     }
