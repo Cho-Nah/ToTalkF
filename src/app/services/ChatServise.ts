@@ -5,6 +5,7 @@ type rawMesage = {message: string, chatId: number, sender: string}
 type Message = {
   sender: string;
   content: string;
+  time: string;
 };
 
 let socket: WebSocket | null = null;
