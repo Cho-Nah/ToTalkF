@@ -14,21 +14,9 @@ type OwnProps = {
 }
 
 const Chat: React.FC<OwnProps> = ({chatid}) => {
-  const {data: userData} = authAPI.useGetUserQuery({});
-  connectWsApi.useConnectQuery(chatid);
-  const {data: message} = chatApi.useConnectQuery(chatid);
-
+  const { data: userData } = authAPI.useGetUserQuery({});
+  const { data: messages = [] } = chatApi.useConnectQuery(chatid);
   const [sendWsMessage] = chatApi.useSendMessageMutation();
-
-  const dispatch = useAppDispatch();
-  const messages = useAppSelector(state => state.messages);
-
-  useEffect(() => {
-    if (message && message[0]) {
-      dispatch(setMessages(message[0]));
-    }
-  }), [message];
-
   const messageInput = useInput("");
 
   const handleSendMessage = async (message: string) => {
@@ -36,9 +24,13 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     messageInput.clear();
 
     if (userData) {
-      await sendWsMessage({message, sender: userData?.name, chatId: chatid});
+      await sendWsMessage({ 
+        message, 
+        sender: userData.name, 
+        chatId: chatid 
+      });
     }
-  }
+  };
 
   return (
     <div className="layout">
