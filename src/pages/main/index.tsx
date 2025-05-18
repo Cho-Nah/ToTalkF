@@ -5,6 +5,7 @@ import type { IEvent } from "../../models/event";
 import EventElement from "./ui/EventElement";
 import CreateChat from "../../features/createChat/CreateChat";
 import { authAPI } from "../../app/services/AuthService";
+import Notification from "../../features/notification/Notification";
 
 const MainPage = () => {
   const [currentTab, setCurrentTab] = useState("All Events");
@@ -54,6 +55,8 @@ const MainPage = () => {
           />)}
 
           {userData?.role !== "participant" && <CreateChat />}
+
+          <Notification />
       </div>
     </div>
   )

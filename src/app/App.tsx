@@ -29,8 +29,6 @@ function App() {
           {/* <MainPage /> */}
           <AuthPage />
           {/* <ChatList /> */}
-
-          <Notification />
         </Window>
       </WindowManager>
     </div>
