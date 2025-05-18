@@ -5,6 +5,7 @@ import { Window, WindowManager } from '../lib/RangleUI/components';
 
 import AuthPage from '../pages/sign-in';
 import Notifications from '../pages/notifications/Notifications';
+import Notification from '../features/notification/Notification';
 
 function App() {
   const env = useEnv();
@@ -12,7 +13,6 @@ function App() {
   useEffect(() => {
     Display.updateRoot(env);
   }, [env]);
-
 
   return (
     <div className='App no-select'>
@@ -30,11 +30,11 @@ function App() {
           <AuthPage />
           {/* <ChatList /> */}
 
-          <Notifications />
+          <Notification />
         </Window>
       </WindowManager>
     </div>
-  )
+  );
 }
 
 export default App;
