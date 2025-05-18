@@ -2,7 +2,7 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Button, Icon, Ripple, Window } from "../../lib/RangleUI/components";
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 
-import "./Notification.scss";
+import "./Notifications.scss";
 
 // type OwnProps = {
 //   name: string;

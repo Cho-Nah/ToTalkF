@@ -14,7 +14,7 @@ const Notify: React.FC<INotify> = ({ icon, label, sublabel, window }) => {
         {window}
       </Window>
     );
-  } 
+  }
 
   const pickIcon = () => {
     switch (icon) {
