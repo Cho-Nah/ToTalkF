@@ -3,6 +3,7 @@ import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import { chatApi } from "../../../app/services/ChatServise";
 import { connectWsApi } from "../../../app/services/ConnectWs";
+import Message from "./Message";
 
 type OwnProps = {
   chatid: number
@@ -30,11 +31,11 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
   //   content: "Ему рыбного курсивных свой проектах ее своих переписали ведущими!", date: new Date()
   // }]);
 
-  const handleSendMessage = async (message: string, id: number) => {
+  const handleSendMessage = async (message: string) => {
     if (!messageInput.value.trim()) return;
     messageInput.clear();
 
-    await sendWsMessage(message, id);
+    await sendWsMessage({message, chatId: chatid});
     // setMessages(prev => [...prev, {sender: "Me", content: messageInput.value, date: new Date()}]);
   }
 
@@ -45,13 +46,13 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     <div className="layout">
       <div className="layout-block Chat">
           <div id="messages">
-          {/* {messages && messages.map((message, id) => <Message
+          {messages && messages.map((message, id) => <Message
             message={message}
-            isOwn={message.sender === myId}
-            sender={messages[id + 1] && messages[id + 1].sender === message.sender 
-              ? null : message.sender}
+            // isOwn={message.sender === myId}
+            // sender={messages[id + 1] && messages[id + 1].sender === message.sender 
+              // ? null : message.sender}
             key={id}
-          />)} */}
+          />)}
         </div>
 
         {/* <div className="flex-gap apsolute-bottom chat-controllers"> */}
@@ -67,7 +68,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
               className="send-button"
               isRipple
               isDisabled={messageInput.value.trim() ? false : true}
-              onClick={() => handleSendMessage(messageInput.value, chatid)}
+              onClick={() => handleSendMessage(messageInput.value)}
             >
               <Icon name="send" isFilled />
             </Button>

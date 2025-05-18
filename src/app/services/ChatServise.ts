@@ -38,10 +38,10 @@ export const chatApi = createApi({
       providesTags: ['Messages'],
     }),
 
-    sendMessage: builder.mutation<void, string>({
-      queryFn: async (message, chatId) => {
+    sendMessage: builder.mutation<void, {message: string, chatId: number}>({
+      queryFn: async ({message, chatId}) => {
         const token = localStorage.getItem("token");
-        const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}/?token=${token}`);
+        const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}`);
 
         return new Promise((resolve) => {
           socket.onopen = () => {
