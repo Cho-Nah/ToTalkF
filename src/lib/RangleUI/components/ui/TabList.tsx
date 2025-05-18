@@ -51,8 +51,8 @@ const TabList: React.FC<OwnProps> = ({
       return;
     }
     
-    var left = activeTabTextRect.left - containerRect.left + containerRef.current.scrollLeft;
-    var width = activeTabTextRect.width;
+    let left = activeTabTextRect.left - containerRect.left + containerRef.current.scrollLeft;
+    let width = activeTabTextRect.width;
 
     if (type === "secondary") {
       left -= 16;

@@ -53,7 +53,7 @@ const Range: React.FC<OwnProps> = ({
       return;
     }
 
-    var value = Number(e.currentTarget.value);
+    let value = Number(e.currentTarget.value);
     value = Math.min(max, Math.max(min, value));
 
     onChange(value);
@@ -75,13 +75,13 @@ const Range: React.FC<OwnProps> = ({
       return;
     }
 
-    var previewBox = preview.getBoundingClientRect();
-    var inputBox = input.getBoundingClientRect();
-    var cursorX = limitNumber(clientX - inputBox.x, 0, inputBox.width);
-    var left = limitNumber(cursorX - previewBox.width / 2, 0, inputBox.width - previewBox.width);
+    const previewBox = preview.getBoundingClientRect();
+    const inputBox = input.getBoundingClientRect();
+    const cursorX = limitNumber(clientX - inputBox.x, 0, inputBox.width);
+    const left = limitNumber(cursorX - previewBox.width / 2, 0, inputBox.width - previewBox.width);
 
-    var previewValue = Math.round(fitNumber(cursorX, 0, inputBox.width, min, max));
-    var formattedValue: number | string;
+    const previewValue = Math.round(fitNumber(cursorX, 0, inputBox.width, min, max));
+    let formattedValue: number | string;
 
     if (previewConfig.formatter) {
       formattedValue = previewConfig.formatter(previewValue);

@@ -1,19 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react-swc'
-import path from 'path'
+const path = require('path');
 
 // https://vite.dev/config/
 export default defineConfig({
   root: path.resolve(__dirname, 'src/app'),
 
-  // Подключаем плагины (например, для React)
   plugins: [react()],
 
-  // Настройка сборки
   build: {
-    outDir: path.resolve(__dirname, 'dist'), // выходная папка
+    outDir: path.resolve(__dirname, 'dist'),
     rollupOptions: {
-      input: path.resolve(__dirname, 'src/app/index.html'), // явно указываем входной HTML
+      input: path.resolve(__dirname, 'src/app/index.html')
     },
   }
 })

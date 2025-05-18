@@ -41,7 +41,7 @@ const WindowManager: React.FC<OwnProps> = ({ className,  children }) => {
   ]);
 
   const createWindow = (window: React.ReactElement<WindowObject>) => {
-    let id = ++windowId;
+    const id = ++windowId;
     console.log(window);
     
     setWindows(prev => [
@@ -55,7 +55,7 @@ const WindowManager: React.FC<OwnProps> = ({ className,  children }) => {
   const closeWindow = (windowId?: number) => {
     setWindows(prev => {
       windowId = windowId ?? prev[prev.length - 1].id;
-      let window = prev.find(window => window.id === windowId);
+      const window = prev.find(window => window.id === windowId);
 
       if (!window) {
         return prev;
@@ -90,9 +90,9 @@ const WindowManager: React.FC<OwnProps> = ({ className,  children }) => {
     }}>
       <div className={createClassName("WindowManager", className)} ref={managerRef}>
         {windows.map((window, index, array) => {
-          let isRoot = index === 0;
-          let isPrevious = index === array.length - 2;
-          let isOpen = !window.isClosed && index === array.length - 1;
+          const isRoot = index === 0;
+          const isPrevious = index === array.length - 2;
+          const isOpen = !window.isClosed && index === array.length - 1;
 
           return (
             <Window 

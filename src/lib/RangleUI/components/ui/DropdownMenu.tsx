@@ -94,8 +94,8 @@ const DropdownMenu: React.FC<OwnProps> = ({
         className={createClassName("dropdown-menu-options", directionY === "top" && "upward")}
       >
         {options.map((option, i) => {
-          let label = option.label || option.value;
-          let isActive = Array.isArray(value) ? value.includes(option.value) : option.value === value;
+          const label = option.label || option.value;
+          const isActive = Array.isArray(value) ? value.includes(option.value) : option.value === value;
 
           return <MenuItem 
             key={i} 

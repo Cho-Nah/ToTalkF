@@ -66,7 +66,7 @@ const Window: React.FC<OwnProps> = ({
   }, [id, onSwipe]);
 
   const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    let element = e.target as HTMLDivElement;
+    const element = e.target as HTMLDivElement;
     setIsScrolled(element.scrollTop > 24);
   }
 
@@ -80,7 +80,7 @@ const Window: React.FC<OwnProps> = ({
     }
 
     if (!engineRef.current && windowRef.current && !isRoot && !isTouchDisabled) {
-      let engine = new TouchEngine(windowRef.current, {
+      const engine = new TouchEngine(windowRef.current, {
         onMove,
         onClose: () => onClose && onClose(id!),
         onSwipe: () => onSwipe && onSwipe(id!),

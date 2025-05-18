@@ -17,7 +17,7 @@ class Display {
     toggleClassList(root, env.isLowResolution, "low-resolution");
 
     if (!document.getElementById(PORTALS_ID)) {
-      let portals = document.createElement("div");
+      const portals = document.createElement("div");
       portals.id = PORTALS_ID;
       document.body.appendChild(portals);
     }

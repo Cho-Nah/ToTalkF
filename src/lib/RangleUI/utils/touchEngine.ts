@@ -45,7 +45,7 @@ class TouchEngine {
     this.element = element;
     this.manager = options.manager || document.querySelector(".WindowManager")!;
 
-    let windows = Array.from(this.manager.querySelectorAll<HTMLElement>(".Window")).filter(window => {
+    const windows = Array.from(this.manager.querySelectorAll<HTMLElement>(".Window")).filter(window => {
       return !window.classList.contains("closed") && !window.classList.contains("open");
     });
 
@@ -119,16 +119,16 @@ class TouchEngine {
     }
 
     if (this.previous) {
-      let managerRect = this.manager.getBoundingClientRect();
-      let previousRect = this.previous.getBoundingClientRect();
+      const managerRect = this.manager.getBoundingClientRect();
+      const previousRect = this.previous.getBoundingClientRect();
       
       if (previousRect.x - managerRect.x >= 0) {
         return;
       }
       
-      let percent = getPercentage(left / 2, previousRect.width / 2);
-      let brightness = fitNumber(percent, 0, 100, 0.75, 1);
-      let translateX = fitNumber(percent, 0, 100, -previousRect.width / 2, 0);
+      const percent = getPercentage(left / 2, previousRect.width / 2);
+      const brightness = fitNumber(percent, 0, 100, 0.75, 1);
+      const translateX = fitNumber(percent, 0, 100, -previousRect.width / 2, 0);
 
       this.previous.style.transition = "all 0ms";
       this.previous.style.transform = `translate3d(${translateX}px, 0, 0)`;

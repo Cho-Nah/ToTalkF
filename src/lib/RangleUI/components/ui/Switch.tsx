@@ -37,7 +37,7 @@ const Switch: React.FC<OwnProps> = ({
       return;
     }
 
-    var target = e.currentTarget;
+    const target = e.currentTarget;
 
     onChange(target.checked);
   }, [onChange, isDisabled]);

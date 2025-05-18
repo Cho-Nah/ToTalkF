@@ -118,8 +118,8 @@ const Menu: React.FC<OwnProps> = ({
   }, [listRef, closeMenu, onCancel]);
 
   const getBorders = useCallback((): Borders => {
-    let globalRight = window.visualViewport?.width ?? window.innerWidth;
-    let globalLeft = window.visualViewport?.height ?? window.innerHeight;
+    const globalRight = window.visualViewport?.width ?? window.innerWidth;
+    const globalLeft = window.visualViewport?.height ?? window.innerHeight;
 
     const borders = {
       top: 0,
@@ -219,12 +219,12 @@ const Menu: React.FC<OwnProps> = ({
       return;
     }
 
-    let getPosition = target === "element" ? getElementPosition : getMousePosition;
-    let position = getPosition();
-    let list = listRef.current;
+    const getPosition = target === "element" ? getElementPosition : getMousePosition;
+    const position = getPosition();
+    const list = listRef.current;
 
     if (shouldWidthFit) {
-      let container = containerRef.current!;
+      const container = containerRef.current!;
       list.style.width = container.offsetWidth + "px";
     }
 
