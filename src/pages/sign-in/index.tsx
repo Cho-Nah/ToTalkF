@@ -50,7 +50,7 @@ const AuthPage = () => {
 
   const handleRegisterEnd = () => {
     manager.createWindow(
-      <Window title="Chats" options={[
+      <Window title="Главная" className="disable-back" options={[
           {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
           {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
       ]}>
@@ -97,7 +97,10 @@ const AuthPage = () => {
             className="full-width form-button"
             isDisabled={loginInput.value.trim() && passInput.value.trim() ? false : true}
             isRipple
-            onClick={handleSign}
+            onClick={
+              // handleSign
+              handleRegisterEnd
+            }
           >
             Войти
           </Button>

@@ -44,17 +44,18 @@ const CreateChat = () => {
           placeholder="Contacts"
           onChange={contactInp.onChange}
           value={contactInp.value}
-
         />
 
-        <div className="between form-margin">
+        <div className="modal-between">
           <Input 
+            className="form-margin"
             placeholder="Time"
             onChange={timeInp.onChange}
             value={timeInp.value}
           />
 
           <Input 
+            className="form-margin"
             placeholder="Slots"
             onChange={slotsInp.onChange}
             value={slotsInp.value}

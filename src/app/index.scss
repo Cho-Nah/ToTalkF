@@ -30,6 +30,16 @@
   z-index: 3;
 }
 
+.modal-between {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+
+  & > * {
+    width: 48%;
+  }
+}
+
 .between {
   display: flex;
   justify-content: space-between;

@@ -117,7 +117,7 @@ const Window: React.FC<OwnProps> = ({
   const renderHeader = () => {
     return (
       <div className="window-header">
-        {!isRoot && <Button 
+        {(!isRoot && className !== "disable-back") && <Button 
           type="icon"
           className="back-button"
           icon={{ name: "arrow_back" }}

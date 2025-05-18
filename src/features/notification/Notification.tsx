@@ -2,7 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import { Button, Icon, Ripple, Window } from "../../lib/RangleUI/components";
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 
-import "./Notifications.scss";
+import "./Notification.scss";
+import { PrimaryIcon } from "../../pages/notifications/Icons";
 
 // type OwnProps = {
 //   name: string;
@@ -12,7 +13,7 @@ import "./Notifications.scss";
 
 const Notification = () => {
   const manager = useContext(ManagerContext);
-  const [isNotifyOpen, setIsNotifyOpen] = useState(false);
+  const [isNotifyOpen, setIsNotifyOpen] = useState(true);
 
   const handleWindowTransfer = () => {
     manager.createWindow(
@@ -45,24 +46,14 @@ const Notification = () => {
   return (
     isNotifyOpen && 
     <div className="notify-container">
-      <div className="notify-block ripple" onClick={handleWindowTransfer}>
-          {/* <Badge 
-            color="primary"
-            className="icon-wrapper"
-            icon={{ name: "exclamation", className: "icon"}}
-          /> */}
-          <Button color="primary" className="circle-indicator">
-            <Icon 
-             name="exclamation"
-             className="icon"
-            />
-          </Button>
+      <div className="notify ripple" onClick={handleWindowTransfer}>
+          <PrimaryIcon />
 
           <div>
-            <div className="title">
+            <div className="block-title">
               You successfully registreted in meeting!
             </div>
-            <div className="caption">
+            <div className="block-caption">
               Click to see more
             </div>
           </div>
