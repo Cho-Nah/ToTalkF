@@ -55,9 +55,9 @@ const MainPage = () => {
           />)}
 
           {userData?.role !== "participant" && <CreateChat />}
-      </div>
 
-      <Notification />
+          <Notification />
+      </div>
     </div>
   )
 }
