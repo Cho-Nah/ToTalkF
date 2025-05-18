@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import type { IUser, SignUpResponse } from "../../models/user";
+import type { SignUpResponse } from "../../models/user";
 
 export const registerAPI = createApi({
     reducerPath: 'registerAPI',

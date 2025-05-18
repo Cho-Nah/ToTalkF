@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { authAPI } from "../../app/services/AuthService";
 import { Button, Input, Window } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
@@ -16,6 +16,13 @@ const AuthPage = () => {
 
   const loginInput = useInput("");
   const passInput = useInput("");
+
+  useEffect(() => {
+    const {data: userData} = authAPI.useGetUserQuery({});
+    if (!userData) return;
+
+    handleRegisterEnd();
+  }, []);
 
   const handleQAOpen = () => {
     manager.createWindow(

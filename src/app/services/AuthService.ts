@@ -21,5 +21,19 @@ export const authAPI = createApi({
       },
       invalidatesTags: ['sign-in']
     }),
+
+    getUser: build.query<IUser, {}>({
+      query: () => {
+        const token = localStorage.getItem("token");
+
+        return {
+          headers: {
+            Authorization: `Bearer ${token}`
+          },
+          url: `/get-user`
+        }
+      },
+      providesTags: result => ['sign-in']
+    }),
   })
 });
