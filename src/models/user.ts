@@ -1,6 +1,6 @@
 export interface IUser {
   name: string;
-  role: string;
+  role: "participant" | "volunteer" | "organizer";
 }
 
 export interface SignInResponse {

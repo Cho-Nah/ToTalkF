@@ -1,12 +1,13 @@
 import type { JSX } from "react";
 
 export interface IEvent {
-    name: string
-    slots: number
-    selectedSlots: number
-    tagName: string
-    time: number;   //timestamp
-    inQueue?: number;
+    name: string;
+    desc: string;
+    time: string;
+    contacts: string;
+    slots: number;
+    selectedSlots: number;
+    inQueue?: number | 0;
 }
 
 export interface INotify {

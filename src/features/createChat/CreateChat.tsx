@@ -7,12 +7,15 @@ import "./CreateChat.scss";
 
 const CreateChat = () => {
   const [isModalOpen, openModal, closeModal] = useFlag();
-  const [isSwitched, setIsSwitched] = useState(false);
+  // const [isSwitched, setIsSwitched] = useState(false);
   const nameInp = useInput();
   const contactInp = useInput();
+  const timeInp = useInput();
+  const descInp = useInput();
+  const slotsInp = useInput();
 
   const handleCreateChat = () => {
-    console.log({ name: nameInp.value, contact: contactInp.value, forOrg: isSwitched });
+    // console.log({ name: nameInp.value, contact: contactInp.value, forOrg: isSwitched });
     closeModal();
   }
   
@@ -31,7 +34,7 @@ const CreateChat = () => {
       >
         <Input 
           className="form-margin"
-          placeholder="Chat name"
+          placeholder="Event name"
           onChange={nameInp.onChange}
           value={nameInp.value}
         />
@@ -44,7 +47,28 @@ const CreateChat = () => {
 
         />
 
-        <div className="row">
+        <div className="between form-margin">
+          <Input 
+            placeholder="Time"
+            onChange={timeInp.onChange}
+            value={timeInp.value}
+          />
+
+          <Input 
+            placeholder="Slots"
+            onChange={slotsInp.onChange}
+            value={slotsInp.value}
+          />
+        </div>
+
+        <Input 
+          className="form-margin"
+          placeholder="Description"
+          onChange={descInp.onChange}
+          value={descInp.value}
+        />
+
+        {/* <div className="row">
           <div className="column">
             <Switch
               isRipple
@@ -55,7 +79,7 @@ const CreateChat = () => {
               onChange={setIsSwitched}
             />
           </div>
-        </div>
+        </div> */}
 
         <Button 
           className="full-width create-button"
