@@ -24,8 +24,8 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
   const messages = useAppSelector(state => state.messages);
 
   useEffect(() => {
-    if (message) {
-      dispatch(setMessages(message));
+    if (message && message[0]) {
+      dispatch(setMessages(message[0]));
     }
   }), [message];
 
@@ -39,13 +39,13 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
       await sendWsMessage({message, sender: userData?.name, chatId: chatid});
     }
   }
-  
+
   return (
     <div className="layout">
       <div className="layout-block Chat">
           <div id="messages">
           {messages.length !== 0 && messages.map((message, id) => <Message
-            content={message.content ? message.content : "hidden"}
+            content={message.content}
             isOwn={message.sender === userData?.name}
             sender={messages[id + 1] && messages[id + 1].sender === message.sender
               ? null : message.sender
