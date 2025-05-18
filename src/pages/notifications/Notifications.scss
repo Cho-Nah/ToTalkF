@@ -48,18 +48,12 @@
   }
 }
 
-@keyframes notificationFade {
+@keyframes notificationFades {
   0% {
-    transform: translateY(70px);
-  }
-  8% {
-    transform: translateY(0);
+    transform: translateY(0px);
   }
 
-  92% {
-    transform: translateY(0);
-  }
   100% {
-    transform: translateY(70px);
+    transform: translateY(0px);
   }
 }
