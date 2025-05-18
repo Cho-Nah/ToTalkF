@@ -1,8 +1,10 @@
 import type { INotify } from "../../models/event";
+
 import AuthPage from "../sign-in";
 import RegisterPage from "../sign-up";
-import "./Notifications.scss";
 import Notify from "./Notify";
+
+import "./Notifications.scss";
 
 const Notifications = () => {
   const notifications: INotify[] = [
