@@ -1,24 +1,60 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { authAPI } from "../../app/services/AuthService";
 import { Button, Input, Window } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignInResponse } from "../../models/user";
 
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
+import MainPage from "../main";
+import QuestionsAnswers from "../q&a";
+import Notifications from "../notifications/Notifications";
 import RegisterPage from "../sign-up";
 
 const AuthPage = () => {
   const manager = useContext(ManagerContext);
   const [sendUserData] = authAPI.useSendSignInMutation();
+  const {data: userData, isLoading} = authAPI.useGetUserQuery({});
 
   const loginInput = useInput("");
   const passInput = useInput("");
 
+  useEffect(() => {
+    if (!userData) return;
+    console.log(userData);
+    handleRegisterEnd();
+  }, [isLoading]);
+
+  const handleQAOpen = () => {
+    manager.createWindow(
+      <Window title="Questions & Answers">
+        <QuestionsAnswers />
+      </Window>
+    );
+  }
+
+  const handleNatificationsOpen = () => {
+    manager.createWindow(
+      <Window title="Notifications">
+        <Notifications />
+      </Window>
+    );
+  }
 
   const handleWindowTransfer = () => {
     manager.createWindow(
       <Window title="Sign Up">
         <RegisterPage />
+      </Window>
+    );
+  }
+
+  const handleRegisterEnd = () => {
+    manager.createWindow(
+      <Window title="Chats" options={[
+          {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
+          {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
+      ]}>
+        <MainPage/>
       </Window>
     );
   }
@@ -31,7 +67,12 @@ const AuthPage = () => {
 
     const response = await sendUserData(signData);
     console.log(response);
-    console.log();
+
+    if (response.data?.token) {
+      localStorage.setItem("token", response.data.token);
+
+      handleRegisterEnd();
+    } 
   }
 
   return (

@@ -1,17 +1,15 @@
-import { createApi } from '@reduxjs/toolkit/query'
-import { fetchBaseQuery } from '@reduxjs/toolkit/query'
+import { createApi } from "@reduxjs/toolkit/query";
+import { fetchBaseQuery } from "@reduxjs/toolkit/query";
+import type { IEvent } from "../../models/event";
 
-export const connectWsApi = createApi({
-    reducerPath: 'connectWsApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'http://localhost:8080'}),
-    tagTypes: ['connect-ws'],
-    endpoints: (build) => ({
-      connect: build.query({
-        query: (chatId) => ({
-          url: /chat/${chatId}
-        }),
-        providesTags: result => ['connect-ws']
-      }),
-    })
-  });
-  
+export const MasterClassApi = createApi({
+  reducerPath: "MasterClassApi",
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8080" }),
+  tagTypes: ["Event"],
+  endpoints: (build) => ({
+    getEvents: build.query<IEvent[], void>({
+      query: () => "/events",
+      providesTags: () => ["Event"],
+    }),
+  }),
+});

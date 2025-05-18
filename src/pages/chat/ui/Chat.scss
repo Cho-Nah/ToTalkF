@@ -13,27 +13,30 @@
     border-bottom: var(--border);
     user-select: none;
 
-    .title {
-      font-size: 0.875rem;
-      font-weight: 500;
-      color: #2e2e2e;
-    }
+    // .title {
+    //   font-size: 0.875rem;
+    //   font-weight: 500;
+    //   color: #2e2e2e;
+    // }
 
-    .caption {
-      margin-top: 0.125rem;
-      font-size: 0.875rem;
-      font-weight: 400;
-      color: #b1b0b0;
-    }
+    // .caption {
+    //   margin-top: 0.125rem;
+    //   font-size: 0.875rem;
+    //   font-weight: 400;
+    //   color: #b1b0b0;
+    // }
   }
 
   #messages {
     flex: 1;
-    padding: 10px;
-    overflow-y: auto;
+    // padding: 10px;
+    // overflow-y: auto;
     border-bottom: var(--border);
-    background-image: url("../assets/0.jpg");
-    background-size: auto 100%;
+    // scrollbar-width: none;
+
+    // &::-webkit-scrollbar {
+    //   display: none;
+    // }
   }
   
   .input-container {
@@ -72,4 +75,21 @@
       }
     }
   }
+}
+
+.chat-controllers {
+  padding: 1rem;
+  background-color: #fff;
+  border-top: 1px solid var(--color-border);
+}
+
+.user-controller {
+  padding: 0 !important;
+  padding-top: 1rem !important;
+
+  flex: 0 !important;
+}
+
+.send-button {
+  padding-inline: 0.88rem;
 }

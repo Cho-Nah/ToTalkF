@@ -3,6 +3,8 @@ import ChatWidget from "./ui/ChatWidget";
 import "./ChatList.scss";
 import { TabList } from "../../lib/RangleUI/components";
 import { useState } from "react";
+import Notification from "../../features/notification/Notification";
+import CreateChat from "../../features/createChat/CreateChat";
 
 const ChatList = () => {
   // const [sendUserData, {isError}] = authAPI.useSendSignInMutation();
@@ -58,7 +60,6 @@ const ChatList = () => {
 
   return (
     <div className="layout Chatlist">
-      {/* <TabList></TabList>       */}
       <div className="layout-block list pad-0">
         <TabList
           className="pad-inline-05"
@@ -84,6 +85,9 @@ const ChatList = () => {
             />
           ))}
       </div>
+
+      <CreateChat />
+      <Notification />
     </div>
   );
 };

@@ -1,51 +1,45 @@
 import { useState } from "react";
-import { Button, Input } from "../../../lib/RangleUI/components";
+import { Button, Icon, Input } from "../../../lib/RangleUI/components";
 import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import Message from "./Message";
-import { useSendMessageMutation } from "../../../app/services/ChatServise";
+
+import Keyboard from "../../../lib/RangleUI/utils/keyboard";
 
 const Chat = () => {
   const messageInput = useInput("");
-  const myId = 1;
+  const myId = "Me";
   const [messages, setMessages] = useState([
     {
-      senderId: 3,
+      sender: "Pete",
       content:
         "Далеко-далеко за словесными горами в стране гласных и согласных",
       date: new Date(),
     },
     {
-      senderId: 1,
+      sender: "Me",
       content:
         "Грамматики снова заманивший моей жаренные заголовок имеет своих маленькая, точках сих.",
       date: new Date(),
     },
     {
-      senderId: 3,
+      sender: "YXUNGGG",
       content:
         "Ему рыбного курсивных свой проектах ее своих переписали ведущими!",
       date: new Date(),
     },
   ]);
 
-  const [sendMessage] = useSendMessageMutation();
-
-  const handleSendMessage = async () => {
-    const content = messageInput.value.trim();
-    if (!content) return;
-
+  const handleSendMessage = () => {
+    if (!messageInput.value.trim()) return;
     setMessages((prev) => [
       ...prev,
-      { senderId: myId, content, date: new Date() },
+      { sender: "Me", content: messageInput.value, date: new Date() },
     ]);
-    try {
-      await sendMessage(content);
-    } catch (error) {
-      console.log("Ошибка при отправке сообщения");
-    }
     messageInput.clear();
   };
+
+  Keyboard.register("Enter", handleSendMessage);
 
   // const chatMessages = messages ? messages.filter(message => message.chatId === currentChat?.id) : [];
 
@@ -56,25 +50,35 @@ const Chat = () => {
           {messages.map((message, id) => (
             <Message
               message={message}
-              isOwn={message.senderId === myId}
+              isOwn={message.sender === myId}
+              sender={
+                messages[id + 1] && messages[id + 1].sender === message.sender
+                  ? null
+                  : message.sender
+              }
               key={id}
             />
           ))}
         </div>
 
-        <div className="flex-gap">
-          <Input
-            placeholder="Message..."
-            value={messageInput.value}
-            onChange={messageInput.onChange}
-          />
-          <Button
-            className="p-1"
-            isRipple
-            isDisabled={messageInput.value.trim() ? false : true}
-            icon={{ name: "send", isFilled: true, className: "mar-0" }}
-            onClick={handleSendMessage}
-          ></Button>
+        {/* <div className="flex-gap apsolute-bottom chat-controllers"> */}
+        <div className="layout-block user-controller">
+          <div className="flex-gap">
+            <Input
+              placeholder="Message..."
+              value={messageInput.value}
+              onChange={messageInput.onChange}
+              isNativePlaceholder
+            />
+            <Button
+              className="send-button"
+              isRipple
+              isDisabled={messageInput.value.trim() ? false : true}
+              onClick={handleSendMessage}
+            >
+              <Icon name="send" isFilled />
+            </Button>
+          </div>
         </div>
       </div>
     </div>

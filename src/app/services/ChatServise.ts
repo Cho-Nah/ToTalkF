@@ -2,7 +2,7 @@ import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 import { io } from "socket.io-client";
 // import type { Message } from "../../models/user";
 
-const socket = io("wss://localhost:3001");
+const socket = io("wss://localhost:8081");
 
 export const messageApi = createApi({
   reducerPath: "messageApi",

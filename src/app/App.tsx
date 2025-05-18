@@ -3,12 +3,9 @@ import useEnv from "../lib/RangleUI/hooks/useEnv";
 import Display from "../lib/RangleUI/display";
 import { Window, WindowManager } from "../lib/RangleUI/components";
 
-import ChatList from "../pages/chat";
+import AuthPage from "../pages/sign-in";
 
-import MainPage from "../pages/main/Main";
 import MasterClassPage from "../pages/masterClass/MasterClass";
-
-import Welcome from "../components/Welcome";
 
 function App() {
   const env = useEnv();
@@ -19,8 +16,8 @@ function App() {
 
   return (
     <div className="App no-select">
-      <WindowManager>
-        <Window
+      {/* <WindowManager> */}
+      {/* <Window
           title="Starting"
           options={[
             {
@@ -32,13 +29,18 @@ function App() {
           ]}
         >
           <Welcome />
-        </Window>
-      </WindowManager>
-      <Window title="Чаты">
+        </Window> */}
+      {/* <Window title="Sign In">
+          <MainPage />
+          <AuthPage />
+          <ChatList />
+        </Window> */}
+      {/* </WindowManager> */}
+      {/* <Window title="Чаты">
         <ChatList />
-      </Window>
+      </Window> */}
       {/* <MainPage /> */}
-      {/* <MasterClassPage /> */}
+      <MasterClassPage />
     </div>
   );
 }

@@ -1,28 +1,46 @@
 import { useContext, useState } from "react";
-import { authAPI } from "../../app/services/AuthService";
-import { Button, Input, RadioGroup } from "../../lib/RangleUI/components";
+import { Button, Input, RadioGroup, Window } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignUpResponse } from "../../models/user";
 import { registerAPI } from "../../app/services/RegisterService";
+import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
+import MainPage from "../main";
+import { authAPI } from "../../app/services/AuthService";
 
 import { useSelector, useDispatch } from "react-redux";
 import type { RootState } from "../../app/Store/store";
 import { setName, setRole } from "../../models/UserSlice";
 
 const RegisterPage = () => {
+<<<<<<< HEAD
   // const manager = useContext(ManagerContext);
   const [sendUserData, { data }] = registerAPI.useCreatePostMutation();
+=======
+  const manager = useContext(ManagerContext);
+  const [registerUser] = registerAPI.useCreatePostMutation();
+  const [authUser] = authAPI.useSendSignInMutation();
+>>>>>>> origin/Serega
 
   const loginInput = useInput("");
   const passInput = useInput("");
   const nameInput = useInput("");
   const [sepcRadio, setSpecRadio] = useState("");
 
+<<<<<<< HEAD
   //Если юзаем slice
   const dispatch = useDispatch();
 
   const name = useSelector((state: RootState) => state.user.name);
   const role = useSelector((state: RootState) => state.user.role);
+=======
+    const handleWindowTransfer = () => {
+    manager.createWindow(
+      <Window title="Sign Up">
+        <MainPage />
+      </Window>
+    );
+  }
+>>>>>>> origin/Serega
 
   const handleSign = async () => {
     const signData: SignUpResponse = {
@@ -36,8 +54,10 @@ const RegisterPage = () => {
     passInput.clear();
     nameInput.clear();
 
-    const response = await sendUserData(signData);
+    const response = await registerUser(signData);
+    console.log(response.data);
 
+<<<<<<< HEAD
     if (response.data) {
       dispatch(setName(response.data.name));
       dispatch(setRole(response.data.role));
@@ -45,6 +65,22 @@ const RegisterPage = () => {
 
     console.log(response);
   };
+=======
+    if (response.data?.status) {
+      const response =await authUser({
+        login: signData.login,
+        password: signData.password
+      });
+
+      if (response.data?.token) {
+        localStorage.setItem("token", response.data.token);
+        console.log("token:", response.data.token);
+
+        handleWindowTransfer();
+      }
+    }
+  }
+>>>>>>> origin/Serega
 
   return (
     <div className="sign-in layout">
@@ -109,7 +145,7 @@ const RegisterPage = () => {
             isRipple
             onClick={handleSign}
           >
-            Зарегестрироваться
+            Зарегистрироваться
           </Button>
 
           <p>Name: {name}</p>

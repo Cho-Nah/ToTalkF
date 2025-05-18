@@ -2,13 +2,15 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { authAPI } from "../services/AuthService";
 import { registerAPI } from "../services/RegisterService";
 import { messageApi } from "../services/ChatServise";
-import userReducer from "../../models/UserSlice";
+import { MasterClassApi } from "../services/MasterClassServise";
+// import userReducer from "../../models/UserSlice";
 
 const rootReducer = combineReducers({
-  user: userReducer,
+  // user: userReducer,
   [registerAPI.reducerPath]: registerAPI.reducer,
   [authAPI.reducerPath]: authAPI.reducer,
   [messageApi.reducerPath]: messageApi.reducer,
+  [MasterClassApi.reducerPath]: MasterClassApi.reducer,
 });
 
 export const store = configureStore({
@@ -17,7 +19,8 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       registerAPI.middleware,
       authAPI.middleware,
-      messageApi.middleware
+      messageApi.middleware,
+      MasterClassApi.middleware
     ),
 });
 
