@@ -29,7 +29,6 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     }
   }), [message];
 
-
   const messageInput = useInput("");
 
   const handleSendMessage = async (message: string) => {
@@ -46,7 +45,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
       <div className="layout-block Chat">
           <div id="messages">
           {messages.map((message, id) => <Message
-            content={message.content}
+            content={message.content && message.content}
             isOwn={message.sender === userData?.name}
             sender={messages[id + 1] && messages[id + 1].sender === message.sender
               ? null : message.sender
