@@ -10,7 +10,7 @@ import { useAppSelector } from "../../hooks/redux";
 const MainPage = () => {
   const [currentTab, setCurrentTab] = useState("All Events");
   const {data: userData} = authAPI.useGetUserQuery({});
-  const Events = useAppSelector(state => state.events);
+  // const Events = useAppSelector(state => state.);
 
   const events: IEvent[] = [{
     name: "Вяжем носки",
@@ -44,7 +44,7 @@ const MainPage = () => {
             { value: "My subs" },
           ]}
         />
-          {Events.concat(events).map(event => <EventElement
+          {events.map(event => <EventElement
             name={event.name}
             selectedSlots={event.selectedSlots}
             slots={event.slots}

@@ -4,7 +4,7 @@ import { registerAPI } from "../services/RegisterService";
 import { connectWsApi } from "../services/ConnectWs";
 import { chatApi } from "../services/ChatServise";
 
-import events from "../../pages/main/slice";
+import messages from "../../pages/chat/slice";
 
 const rootReducer = combineReducers({
     // userReducer,
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
     [authAPI.reducerPath]: authAPI.reducer,
     [connectWsApi.reducerPath]: connectWsApi.reducer,
     [chatApi.reducerPath]: chatApi.reducer,
-    events: events,
+    messages: messages,
 });
 
 export const store = configureStore({

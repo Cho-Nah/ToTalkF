@@ -2,14 +2,14 @@ import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
 type rawMesage = {message: string, chatId: number, sender: string}
 
-type Message = {
+export type MessageType = {
   sender: string;
   content: string;
   time: string;
 };
 
 let socket: WebSocket | null = null;
-let messageListeners: Array<(message: Message) => void> = [];
+let messageListeners: Array<(message: MessageType) => void> = [];
 let connectionPromise: Promise<void> | null = null;
 
 const initializeSocket = (chatId: number) => {
@@ -24,9 +24,9 @@ const initializeSocket = (chatId: number) => {
     });
 
     socket.onmessage = (event) => {
-      console.log(event.data);
       const message = JSON.parse(event.data);
       messageListeners.forEach(listener => listener(message));
+      console.log(event.data);
     };
   }
   return connectionPromise;
@@ -51,7 +51,7 @@ export const chatApi = createApi({
           });
         };
 
-        // messageListeners.push(messageHandler);
+        messageListeners.push(messageHandler);
 
         try {
           await cacheDataLoaded;

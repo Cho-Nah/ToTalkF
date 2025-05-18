@@ -3,8 +3,11 @@ import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import { chatApi } from "../../../app/services/ChatServise";
 import { connectWsApi } from "../../../app/services/ConnectWs";
-import Message from "./Message";
 import { authAPI } from "../../../app/services/AuthService";
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
+import { setMessages } from "../slice";
+import Message from "./Message";
 
 type OwnProps = {
   chatid: number
@@ -12,14 +15,21 @@ type OwnProps = {
 
 const Chat: React.FC<OwnProps> = ({chatid}) => {
   const {data: userData} = authAPI.useGetUserQuery({});
-  const {data} = connectWsApi.useConnectQuery(chatid);
+  connectWsApi.useConnectQuery(chatid);
+  const {data: message} = chatApi.useConnectQuery(chatid);
 
-  const {data: messages} = chatApi.useConnectQuery(chatid);
   const [sendWsMessage] = chatApi.useSendMessageMutation();
 
+  const dispatch = useAppDispatch();
+  const messages = useAppSelector(state => state.messages);
+
+  useEffect(() => {
+    // ts-ignore
+    dispatch(setMessages(message));
+  }), [message];
+
+
   const messageInput = useInput("");
-  console.log(messages);
-  
 
   const handleSendMessage = async (message: string) => {
     if (!messageInput.value.trim()) return;
@@ -34,7 +44,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     <div className="layout">
       <div className="layout-block Chat">
           <div id="messages">
-          {messages && messages.map((message, id) => <Message
+          {messages.map((message, id) => <Message
             content={message.content}
             isOwn={message.sender === userData?.name}
             sender={messages[id + 1] && messages[id + 1].sender === message.sender
