@@ -41,17 +41,6 @@ const AuthPage = () => {
     );
   }
 
-  const handle = () => {
-    manager.createWindow(
-      <Window title="Chats" options={[
-          {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
-          {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
-      ]}>
-        <MainPage/>
-      </Window>
-    );
-  }
-
   const handleSign = async () => {
     const signData: SignInResponse = { login: loginInput.value, password: passInput.value}
 
@@ -60,7 +49,17 @@ const AuthPage = () => {
 
     const response = await sendUserData(signData);
     console.log(response);
-    console.log();
+
+    if (!response.data) return;
+
+    manager.createWindow(
+      <Window title="Chats" options={[
+          {children: "Notifications", icon: {name: "notifications_active", isFilled: true}, color: "primary", isRipple: true, onClick: handleNatificationsOpen},
+          {children: "Questions & Answers", icon: {name: "help", isFilled: true}, isRipple: true, onClick: handleQAOpen}
+      ]}>
+        <MainPage/>
+      </Window>
+    );
   }
 
   return (
@@ -85,8 +84,7 @@ const AuthPage = () => {
             className="full-width form-button"
             isDisabled={loginInput.value.trim() && passInput.value.trim() ? false : true}
             isRipple
-            // onClick={handleSign}
-            onClick={handle}
+            onClick={handleSign}
           >
             Войти
           </Button>

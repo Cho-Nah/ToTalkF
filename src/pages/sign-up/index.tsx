@@ -1,12 +1,14 @@
 import { useContext, useState } from "react";
-import { Button, Input, RadioGroup } from "../../lib/RangleUI/components";
+import { Button, Input, RadioGroup, Window } from "../../lib/RangleUI/components";
 import useInput from "../../lib/RangleUI/hooks/useInput";
 import type { SignUpResponse } from "../../models/user";
 import { registerAPI } from "../../app/services/RegisterService";
+import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
+import MainPage from "../main";
 
 const RegisterPage = () => {
-  // const manager = useContext(ManagerContext);
-  const [sendUserData, {data}] = registerAPI.useCreatePostMutation();
+  const manager = useContext(ManagerContext);
+  const [sendUserData] = registerAPI.useCreatePostMutation();
 
   const loginInput = useInput("");
   const passInput = useInput("");
@@ -27,7 +29,19 @@ const RegisterPage = () => {
 
     const response = await sendUserData(signData);
 
-    console.log(response);
+    if (response.data && response.data.token) {
+      localStorage.setItem("token", response.data.token);
+
+      handleWindowTransfer();
+    } 
+  }
+
+  const handleWindowTransfer = () => {
+    manager.createWindow(
+      <Window title="Sign Up">
+        <MainPage />
+      </Window>
+    );
   }
 
   return (

@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Button, Window } from "../../lib/RangleUI/components"
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
-import ChatList from "../chat";
 import Chat from "../chat/ui/Chat";
 
 type OwnProps = {
@@ -16,7 +15,7 @@ const EventPage: React.FC<OwnProps> = ({tagName, slots, selectedSlots}) => {
 
   const handleWindowTransfer = () => {
       manager.createWindow(
-        <Window title="Chat">
+        <Window title="Chat" className="">
           <Chat />
         </Window>
       );
