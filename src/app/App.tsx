@@ -4,8 +4,6 @@ import Display from '../lib/RangleUI/display';
 import { Window, WindowManager } from '../lib/RangleUI/components';
 
 import AuthPage from '../pages/sign-in';
-import Notifications from '../pages/notifications/Notifications';
-import Notification from '../features/notification/Notification';
 
 function App() {
   const env = useEnv();

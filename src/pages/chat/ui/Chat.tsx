@@ -25,6 +25,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
 
   useEffect(() => {
     if (messages.length === 0) return;
+    if (myMessages[myMessages.length - 1] === messages[0]) return;
     dispatch(setMessages(messages));
   }, [messages]);
 
