@@ -1,4 +1,3 @@
-import { Button } from "../../lib/RangleUI/components";
 import type { INotify } from "../../models/event";
 import AuthPage from "../sign-in";
 import RegisterPage from "../sign-up";
@@ -23,7 +22,7 @@ const Notifications = () => {
   return (
     <div className="layout">
       <div className="layout-block pad-0">
-        {notifications.map(notify => <Notify 
+        {notifications.map(notify => <Notify
           label={notify.label}
           sublabel={notify.sublabel}
           icon={notify.icon}

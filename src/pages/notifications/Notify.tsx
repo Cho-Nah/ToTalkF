@@ -1,7 +1,7 @@
 import type React from "react";
 import { Ripple, Window } from "../../lib/RangleUI/components";
 import { ErrorIcon, PrimaryIcon, SuccessIcon, WarningIcon } from "./Icons";
-import { useContext, type JSX } from "react";
+import { useContext } from "react";
 import { ManagerContext } from "../../lib/RangleUI/components/ui/WindowManager";
 import type { INotify } from "../../models/event";
 

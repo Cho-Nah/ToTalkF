@@ -10,7 +10,6 @@ import Notification from "../../features/notification/Notification";
 const MainPage = () => {
   const [currentTab, setCurrentTab] = useState("All Events");
   const {data: userData} = authAPI.useGetUserQuery({});
-  // const Events = useAppSelector(state => state.);
 
   const events: IEvent[] = [{
     name: "Вяжем носки",
