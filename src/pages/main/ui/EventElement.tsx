@@ -7,13 +7,13 @@ import "./Event.scss";
 import { ManagerContext } from "../../../lib/RangleUI/components/ui/WindowManager";
 import EventPage from "../../event";
 
-const EventElement: React.FC<IEvent> = ({name, slots, selectedSlots, tagName, time, inQueue}) => {
+const EventElement: React.FC<IEvent> = ({name, slots, selectedSlots, contacts, time, inQueue}) => {
   const manager = useContext(ManagerContext);
 
   const handleWindowTransfer = () => {
     manager.createWindow(
       <Window title={`${name} Event`}>
-        <EventPage tagName={tagName} selectedSlots={selectedSlots} slots={slots} id={1} />
+        <EventPage tagName={contacts} selectedSlots={selectedSlots} slots={slots} id={1} />
       </Window>
     );
   }
@@ -31,11 +31,11 @@ const EventElement: React.FC<IEvent> = ({name, slots, selectedSlots, tagName, ti
       </div>
 
       <div className="link small-link">
-          {tagName}
+          {contacts}
       </div>
 
       <div className="block-caption">
-        Время начала {getTime(time)}
+        Время начала {time}
       </div>
 
       {inQueue
