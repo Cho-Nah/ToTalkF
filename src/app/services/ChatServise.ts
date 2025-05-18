@@ -1,6 +1,13 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
 
-type Message = string;
+type rawMesage = {message: string, chatId: number, sender: string}
+
+type Message = {
+  id: number;
+  sender: string,
+  date: Date,
+  content: string;
+};
 
 export const chatApi = createApi({
   reducerPath: 'messageApi',
@@ -8,45 +15,62 @@ export const chatApi = createApi({
   tagTypes: ['Messages'],
   endpoints: (builder) => ({
     connect: builder.query<Message[], number>({
-      queryFn: (chatid) => ({ data: [] }), // Заглушка, реальные данные будем получать через WS
-      async onCacheEntryAdded(
-        chatId,
-        { cacheDataLoaded, cacheEntryRemoved, updateCachedData, dispatch }
-      ) {
-        const token = localStorage.getItem("token");
-        const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}?token=${token}`);
+  queryFn: () => ({ data: [] }), // Инициализируем пустым массивом
+  async onCacheEntryAdded(
+    chatId,
+    { cacheDataLoaded, cacheEntryRemoved, updateCachedData }
+  ) {
+    const token = localStorage.getItem("token");
+    const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}?token=${encodeURIComponent(token || "")}`);
 
-        try {
-          await cacheDataLoaded;
+    // Создаем буфер для сообщений на случай, если кэш еще не готов
+    let messageBuffer: Message[] = [];
+    let isCacheReady = false;
 
-          socket.onmessage = (event) => {
-            const message = JSON.parse(event.data) as Message;
-            updateCachedData((draft) => {
-              draft.push(message);
-            });
-          };
+    socket.onmessage = (event) => {
+      const message = JSON.parse(event.data) as Message;
+      
+      if (isCacheReady) {
+        updateCachedData((draft) => {
+          draft.push(message); // Добавляем новое сообщение
+        });
+      } else {
+        messageBuffer.push(message); // Сохраняем в буфер
+      }
+    }
 
-          socket.onclose = () => {
-            console.log("WebSocket connection closed");
-          };
+    try {
+      await cacheDataLoaded;
+      isCacheReady = true;
+      
+      // Применяем все сообщения из буфера
+      if (messageBuffer.length > 0) {
+        updateCachedData((draft) => {
+          draft.push(...messageBuffer);
+        });
+        messageBuffer = [];
+      }
 
-          await cacheEntryRemoved;
-        } finally {
-          socket.close();
-        }
-      },
-      providesTags: ['Messages'],
+      await cacheEntryRemoved;
+      } finally {
+        socket.close();
+      }
+    },
+    providesTags: (result) =>
+      result
+        ? [...result.map(({ id }) => ({ type: 'Messages' as const, id })), 'Messages']
+        : ['Messages'],
     }),
 
-    sendMessage: builder.mutation<void, {message: string, chatId: number}>({
-      queryFn: async ({message, chatId}) => {
+    sendMessage: builder.mutation<void, rawMesage>({
+      queryFn: async ({message, chatId, sender}) => {
         const token = localStorage.getItem("token");
         const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}`);
 
         return new Promise((resolve) => {
           socket.onopen = () => {
             socket.send(JSON.stringify({ text: message }));
-            socket.close();
+            // socket.close();
             resolve({ data: undefined });
           };
         });

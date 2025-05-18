@@ -3,29 +3,29 @@ import './Message.scss';
 import createClassName from '../../../lib/RangleUI/utils/createClassName';
 
 type OwnProps = {
-  // message: {sender: string, date: Date, content: string};
-  // isOwn: boolean;
-  // sender: string | null
-  message: string
+  sender: string | null,
+  date: Date,
+  content: string;
+  isOwn: boolean
 }
 
-const Message: React.FC<OwnProps> = ({message
-  // isOwn,
-  // sender
-}) => {  
+const Message: React.FC<OwnProps> = ({
+  content,
+  isOwn,
+  date,
+  sender,
+}) => {
   return (
-    <div className={
-      createClassName("Message")
-      }>
+    <div className={createClassName("Message", isOwn && "own")}>
       <div className="content">
-        {/* {sender && <div className='message-sender'>{sender}</div>} */}
+        {sender && <div className='message-sender'>{sender}</div>}
 
         <div className="text">
-          {message.content}
+          {content}
         </div>
 
         <div className="time">
-          {/* {`${message.date.getHours()}:${message.date.getMinutes()}`} */}
+          {`${date.getHours()}:${date.getMinutes()}`}
         </div>
       </div>
     </div>
