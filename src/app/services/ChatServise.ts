@@ -4,12 +4,14 @@ import { io, Socket } from "socket.io-client";
 const token = localStorage.getItem("token");
 let socket: Socket;
 
-export const initSocket = () => {
+export const initSocket = (id: number) => {
   const token = localStorage.getItem("token");
   socket = io("ws://localhost:8081", {
-    path: "/ws",
-    transports: ["websocket"],
-    query: { token }
+    path: `/ws${id}`,
+    // transports: ["websocket"],
+    extraHeaders: {
+      Authorization: `Bearer ${token}`
+    }
   });
   return socket;
 };
@@ -43,8 +45,8 @@ export const chatApi = createApi({
   }),
 });
 
-export const setupSocketListeners = (store: any) => {
-  if (!socket) initSocket();
+export const setupSocketListeners = (store: any, id: number) => {
+  if (!socket) initSocket(id);
   
   socket.on('connect', () => {
     console.log('Socket connected');

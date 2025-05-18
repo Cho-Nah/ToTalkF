@@ -13,9 +13,11 @@ type OwnProps = {
 
 const Chat: React.FC<OwnProps> = ({chatid}) => {
   const {data} = connectWsApi.useConnectQuery({});
-  const {data: messages} = chatApi.useGetMessageQuery(chatid);
+  const {data: messages} = chatApi.useGetMessageQuery({});
 
-  setupSocketListeners(store);
+  setupSocketListeners(store, chatid);
+  console.log(messages);
+  
   const [sendWsMessage] = chatApi.useSendMessageMutation();
 
   const messageInput = useInput("");
@@ -36,7 +38,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     messageInput.clear();
 
     await sendWsMessage(message);
-    setMessages(prev => [...prev, {sender: "Me", content: messageInput.value, date: new Date()}]);
+    // setMessages(prev => [...prev, {sender: "Me", content: messageInput.value, date: new Date()}]);
   }
 
   // Keyboard.register("Enter", handleSendMessage);
@@ -46,13 +48,13 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     <div className="layout">
       <div className="layout-block Chat">
           <div id="messages">
-          {messages.map((message, id) => <Message
+          {/* {messages && messages.map((message, id) => <Message
             message={message}
             isOwn={message.sender === myId}
             sender={messages[id + 1] && messages[id + 1].sender === message.sender 
               ? null : message.sender}
             key={id}
-          />)}
+          />)} */}
         </div>
 
         {/* <div className="flex-gap apsolute-bottom chat-controllers"> */}
