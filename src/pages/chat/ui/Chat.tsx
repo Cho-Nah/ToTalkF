@@ -30,11 +30,11 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
   //   content: "Ему рыбного курсивных свой проектах ее своих переписали ведущими!", date: new Date()
   // }]);
 
-  const handleSendMessage = async (message: string) => {
+  const handleSendMessage = async (message: string, id: number) => {
     if (!messageInput.value.trim()) return;
     messageInput.clear();
 
-    await sendWsMessage(message);
+    await sendWsMessage(message, id);
     // setMessages(prev => [...prev, {sender: "Me", content: messageInput.value, date: new Date()}]);
   }
 
@@ -67,7 +67,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
               className="send-button"
               isRipple
               isDisabled={messageInput.value.trim() ? false : true}
-              onClick={() => handleSendMessage(messageInput.value)}
+              onClick={() => handleSendMessage(messageInput.value, chatid)}
             >
               <Icon name="send" isFilled />
             </Button>
