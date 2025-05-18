@@ -2,11 +2,8 @@ import { Button, Icon, Input } from "../../../lib/RangleUI/components";
 import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import { chatApi } from "../../../app/services/ChatServise";
-import { connectWsApi } from "../../../app/services/ConnectWs";
 import { authAPI } from "../../../app/services/AuthService";
-import { useEffect } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { setMessages } from "../slice";
+
 import Message from "./Message";
 
 type OwnProps = {

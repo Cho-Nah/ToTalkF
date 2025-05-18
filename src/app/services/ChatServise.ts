@@ -66,7 +66,13 @@ export const chatApi = createApi({
           }
         }
       },
-      providesTags: ['Messages'],
+      providesTags: (result) =>
+        result
+          ? [
+              ...result.map(( _, idx ) => ({ type: 'Messages' as const, idx })),
+              { type: 'Messages', id: 'LIST' }
+            ]
+          : [{ type: 'Messages', id: 'LIST' }],
     }),
 
     sendMessage: builder.mutation<void, rawMesage>({
@@ -77,18 +83,21 @@ export const chatApi = createApi({
           if (socket?.readyState === WebSocket.OPEN) {
             socket.send(JSON.stringify({ message, sender }));
             resolve({ data: undefined });
+          } else {
+            socket?.addEventListener('open', () => {
+              socket?.send(JSON.stringify({ message, sender }));
+              resolve({ data: undefined });
+            }, { once: true });
           }
         });
       },
-      invalidatesTags: ['Messages'],
+      invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
     }),
   }),
 });
 
 // disconnect: builder.mutation<void, void>({
 //   queryFn: () => {
-//     // В реальной реализации нужно хранить активные соединения
-//     // и закрывать их здесь
 //     return { data: undefined };
 //   },
 // }),
