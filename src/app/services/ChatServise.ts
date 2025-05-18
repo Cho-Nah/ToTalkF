@@ -1,63 +1,65 @@
 import { createApi, fakeBaseQuery } from "@reduxjs/toolkit/query/react";
-import { io, Socket } from "socket.io-client";
 
-const token = localStorage.getItem("token");
-let socket: Socket;
-
-export const initSocket = (id: number) => {
-  const token = localStorage.getItem("token");
-  socket = io("ws://localhost:8081", {
-    path: `/ws${id}`,
-    // transports: ["websocket"],
-    extraHeaders: {
-      Authorization: `Bearer ${token}`
-    }
-  });
-  return socket;
-};
+type Message = string;
 
 export const chatApi = createApi({
   reducerPath: 'messageApi',
   baseQuery: fakeBaseQuery(),
   tagTypes: ['Messages'],
   endpoints: (builder) => ({
-    getMessage: builder.query({
-      query: () => 'getMessage',
-    }),
-    sendMessage: builder.mutation<void, string>({ // заменить на реальные значения
-      // Определяем функцию, которая будет отправлять сообщение на сервер
-      query: (message) => {
-        // Отправляем сообщение через сокет
-        socket.emit('sendMessage', { message });
+    connect: builder.query<Message[], void>({
+      queryFn: () => ({ data: [] }), // Заглушка, реальные данные будем получать через WS
+      async onCacheEntryAdded(
+        _,
+        { cacheDataLoaded, cacheEntryRemoved, updateCachedData, dispatch }
+      ) {
+        const token = localStorage.getItem("token");
+        const socket = new WebSocket(`ws://localhost:8081/ws/1?token=${token}`);
+
+        try {
+          await cacheDataLoaded;
+
+          socket.onmessage = (event) => {
+            const message = JSON.parse(event.data) as Message;
+            updateCachedData((draft) => {
+              draft.push(message);
+            });
+          };
+
+          socket.onclose = () => {
+            console.log("WebSocket connection closed");
+          };
+
+          await cacheEntryRemoved;
+        } finally {
+          socket.close();
+        }
       },
-      invalidatesTags: ["Messages"],
-      onQueryStarted: () => {
-        console.log('Sending message...');
-      },
+      providesTags: ['Messages'],
     }),
 
-    disconnectSocket: builder.mutation<void, void>({
-      query: () => {
-        socket.disconnect();
+    sendMessage: builder.mutation<void, string>({
+      queryFn: async (message) => {
+        const token = localStorage.getItem("token");
+        const socket = new WebSocket(`ws://localhost:8081/ws?token=${token}`);
+
+        return new Promise((resolve) => {
+          socket.onopen = () => {
+            socket.send(JSON.stringify({ text: message }));
+            socket.close();
+            resolve({ data: undefined });
+          };
+        });
+      },
+      invalidatesTags: ['Messages'],
+    }),
+
+    disconnect: builder.mutation<void, void>({
+      queryFn: () => {
+        // В реальной реализации нужно хранить активные соединения
+        // и закрывать их здесь
         return { data: undefined };
       },
     }),
   }),
 });
-
-export const setupSocketListeners = (store: any, id: number) => {
-  if (!socket) initSocket(id);
-  
-  socket.on('connect', () => {
-    console.log('Socket connected');
-    
-    socket.on('message', (data) => {
-      console.log("Получено сообщение", data);
-      store.dispatch(chatApi.util.invalidateTags(['Messages']));
-    });
-  });
-
-  socket.on('disconnect', () => {
-    console.log("Socket disconnected");
-  });
-};
