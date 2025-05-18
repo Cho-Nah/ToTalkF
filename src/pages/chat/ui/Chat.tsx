@@ -44,7 +44,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
     <div className="layout">
       <div className="layout-block Chat">
           <div id="messages">
-          {messages && messages.map((message, id) => <Message
+          {!messages.length === 0 && messages.map((message, id) => <Message
             content={message.content ? message.content : "hidden"}
             isOwn={message.sender === userData?.name}
             sender={messages[id + 1] && messages[id + 1].sender === message.sender
