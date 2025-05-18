@@ -2,7 +2,6 @@ import { Button, Icon, Input } from "../../../lib/RangleUI/components";
 import useInput from "../../../lib/RangleUI/hooks/useInput";
 import "./Chat.scss";
 import { chatApi } from "../../../app/services/ChatServise";
-import { store } from "../../../app/Store/store";
 import { connectWsApi } from "../../../app/services/ConnectWs";
 
 type OwnProps = {
@@ -11,7 +10,7 @@ type OwnProps = {
 
 const Chat: React.FC<OwnProps> = ({chatid}) => {
   const {data} = connectWsApi.useConnectQuery(chatid);
-  const {data: messages} = chatApi.useConnectQuery({});
+  const {data: messages} = chatApi.useConnectQuery(chatid);
 
   // setupSocketListeners(store, chatid);
   console.log(messages);

@@ -7,14 +7,14 @@ export const chatApi = createApi({
   baseQuery: fakeBaseQuery(),
   tagTypes: ['Messages'],
   endpoints: (builder) => ({
-    connect: builder.query<Message[], void>({
-      queryFn: () => ({ data: [] }), // Заглушка, реальные данные будем получать через WS
+    connect: builder.query<Message[], number>({
+      queryFn: (chatid) => ({ data: [] }), // Заглушка, реальные данные будем получать через WS
       async onCacheEntryAdded(
-        _,
+        chatId,
         { cacheDataLoaded, cacheEntryRemoved, updateCachedData, dispatch }
       ) {
         const token = localStorage.getItem("token");
-        const socket = new WebSocket(`ws://localhost:8081/ws/1?token=${token}`);
+        const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}?token=${token}`);
 
         try {
           await cacheDataLoaded;
@@ -39,9 +39,9 @@ export const chatApi = createApi({
     }),
 
     sendMessage: builder.mutation<void, string>({
-      queryFn: async (message) => {
+      queryFn: async (message, chatId) => {
         const token = localStorage.getItem("token");
-        const socket = new WebSocket(`ws://localhost:8081/ws?token=${token}`);
+        const socket = new WebSocket(`ws://localhost:8081/ws/${chatId}/?token=${token}`);
 
         return new Promise((resolve) => {
           socket.onopen = () => {
