@@ -4,6 +4,7 @@ import Display from '../lib/RangleUI/display';
 import { Window, WindowManager } from '../lib/RangleUI/components';
 
 import AuthPage from '../pages/sign-in';
+import Notifications from '../pages/notifications/Notifications';
 
 function App() {
   const env = useEnv();
@@ -28,6 +29,8 @@ function App() {
           {/* <MainPage /> */}
           <AuthPage />
           {/* <ChatList /> */}
+
+          <Notifications />
         </Window>
       </WindowManager>
     </div>

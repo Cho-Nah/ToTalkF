@@ -48,7 +48,7 @@ const Chat: React.FC<OwnProps> = ({chatid}) => {
           {myMessages.length !== 0 && myMessages.map((message, id) => <Message
             content={message.content}
             isOwn={message.sender === userData?.name}
-            sender={messages[id + 1] && messages[id + 1].sender === message.sender
+            sender={myMessages[id + 1] && myMessages[id + 1].sender === message.sender
               ? null : message.sender
             }
             date={new Date()}
